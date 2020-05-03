@@ -51,10 +51,14 @@ function showMenus() {
 const state = { visible: false, placement: 'left' };
 
 function Sidebar() {
-  const [visible, setVisible] = useState(false);
+  const [ visible, setVisible ] = useState(false);
 
   const showDrawer = () => {
     setVisible(true)
+  };
+
+  const onClose = () => {
+    setVisible(false)
   };
 
   return (
@@ -62,6 +66,18 @@ function Sidebar() {
       <Button type="primary" onClick={showDrawer}>
         Open
       </Button>
+
+      <Drawer
+        title="Basic Drawer"
+        placement="left"
+        closable={false}
+        visible={visible}
+      >
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Drawer>
+
       <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
         <Link to={'/'} className="sidebar-brand d-flex align-items-center justify-content-center">
           <div className="sidebar-brand-icon rotate-n-15">
@@ -75,7 +91,7 @@ function Sidebar() {
         {/* Divider */}
         <hr className="sidebar-divider d-none d-md-block" />
         {/* Sidebar Toggler (Sidebar) */}
-        <div className="text-center d-none d-md-inline">
+        <div className="text-center d-none d-md-inline" onClick={onClose}>
           <button className="rounded-circle border-0" id="sidebarToggle" />
         </div>
       </ul>
