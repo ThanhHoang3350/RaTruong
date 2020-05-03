@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 import { Route, NavLink, Link } from 'react-router-dom';
 
 import { Drawer, Button, Radio, Space } from 'antd';
 
-// const RadioGroup = Radio.Group;
+const RadioGroup = Radio.Group;
 
 const MenuLink = ({ menu }) => {
 	return (
@@ -47,27 +48,39 @@ function showMenus() {
   return xhtml;
 }
 
-function Sidebar() {
-  return (
-      <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-          <Link to={'/'} className="sidebar-brand d-flex align-items-center justify-content-center">
-              <div className="sidebar-brand-icon rotate-n-15">
-                  <i className="fas fa-laugh-wink" />
-              </div>
-              <div className="sidebar-brand-text mx-3">ADMIN</div>
-          </Link>
+const state = { visible: false, placement: 'left' };
 
-          {/* Nav Item - Tables */}
-          {showMenus()}
-          {/* Divider */}
-          <hr className="sidebar-divider d-none d-md-block" />
-          {/* Sidebar Toggler (Sidebar) */}
-          <div className="text-center d-none d-md-inline">
-              <button className="rounded-circle border-0" id="sidebarToggle" />
+function Sidebar() {
+  const [visible, setVisible] = useState(false);
+
+  const showDrawer = () => {
+    setVisible(true)
+  };
+
+  return (
+    <div>
+      <Button type="primary" onClick={showDrawer}>
+        Open
+      </Button>
+      <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <Link to={'/'} className="sidebar-brand d-flex align-items-center justify-content-center">
+          <div className="sidebar-brand-icon rotate-n-15">
+              <i className="fas fa-laugh-wink" />
           </div>
+          <div className="sidebar-brand-text mx-3">ADMIN</div>
+        </Link>
+
+        {/* Nav Item - Tables */}
+        {showMenus()}
+        {/* Divider */}
+        <hr className="sidebar-divider d-none d-md-block" />
+        {/* Sidebar Toggler (Sidebar) */}
+        <div className="text-center d-none d-md-inline">
+          <button className="rounded-circle border-0" id="sidebarToggle" />
+        </div>
       </ul>
+    </div>
   );
 }
-
 
 export default Sidebar;
