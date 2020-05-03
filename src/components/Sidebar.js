@@ -1,100 +1,94 @@
 import React, { useState } from 'react';
+import './Sidebar.css';
+import "antd/dist/antd.css";
 
 import { Route, NavLink, Link } from 'react-router-dom';
+import { Button, Radio, Space, Menu } from 'antd';
 
-import { Drawer, Button, Radio, Space } from 'antd';
-
-const RadioGroup = Radio.Group;
-
-const MenuLink = ({ menu }) => {
-	return (
-		<Route path={menu.to} exact={menu.exact}
-			children=
-				{
-					({ match }) => {
-						let active = (match !== null && match.isExact===true) ? "active" : "";
-						return (
-              <li className={`nav-item ${active}`}>
-                <NavLink to={menu.to} className="nav-link" >
-                    <i className="fas fa-fw fa-table" />
-                    <span>{menu.name}</span>
-                </NavLink>
-              </li>
-						)
-					}
-				}
-		/>
-	)
-}
-
-function createMenu() {
-  let menus  = [];
-  menus.push({to: '/order', exact: true, name: 'Quản lý đơn hàng'});
-  menus.push({to: '/employees', exact: true, name: 'Quản lý nhân viên'});
-  menus.push({to: '/customer', exact: true, name: 'Quản lý khách hàng'});
-  return menus;
-}
-
-function showMenus() {
-  let xhtml = null;
-  let menus  = createMenu();
-  if(menus.length > 0 ){
-    xhtml = menus.map((menu, index)=> {
-        return (
-          <MenuLink menu={menu} key={index} />
-        );
-    });
-  }
-  return xhtml;
-}
-
-const state = { visible: false, placement: 'left' };
+import {
+  AppstoreOutlined,
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+  PieChartOutlined,
+  DesktopOutlined,
+  ContainerOutlined,
+  MailOutlined,
+} from '@ant-design/icons';
 
 function Sidebar() {
-  const [ visible, setVisible ] = useState(false);
+  const [ collapsed, setCollapsed ] = useState(false);
+  const { SubMenu } = Menu;
 
-  const showDrawer = () => {
-    setVisible(true)
-  };
-
-  const onClose = () => {
-    setVisible(false)
+  const toggleCollapsed = () => {
+    setCollapsed(!collapsed)
   };
 
   return (
-    <div>
-      <Button type="primary" onClick={showDrawer}>
-        Open
+    <div style={{ width: 256 }}>
+      <Button type="primary" onClick={toggleCollapsed} style={{ marginBottom: 16 }}>
+        {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined)}
       </Button>
-
-      <Drawer
-        title="Basic Drawer"
-        placement="left"
-        closable={false}
-        visible={visible}
+      <Menu
+        className="Menu"
+        defaultSelectedKeys={['1']}
+        defaultOpenKeys={['sub1']}
+        mode="inline"
+        theme="dark"
+        inlineCollapsed={collapsed}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Drawer>
 
-      <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-        <Link to={'/'} className="sidebar-brand d-flex align-items-center justify-content-center">
-          <div className="sidebar-brand-icon rotate-n-15">
-              <i className="fas fa-laugh-wink" />
-          </div>
-          <div className="sidebar-brand-text mx-3">ADMIN</div>
-        </Link>
+        <Menu.Item key="1" icon={<PieChartOutlined />}>
+          <Link to="/order" className="Link">
+            Thống kê doanh thu
+          </Link>
+        </Menu.Item>
 
-        {/* Nav Item - Tables */}
-        {showMenus()}
-        {/* Divider */}
-        <hr className="sidebar-divider d-none d-md-block" />
-        {/* Sidebar Toggler (Sidebar) */}
-        <div className="text-center d-none d-md-inline" onClick={onClose}>
-          <button className="rounded-circle border-0" id="sidebarToggle" />
-        </div>
-      </ul>
+        <Menu.Item key="2" icon={<PieChartOutlined />}>
+          <Link to="/customer" className="Link">
+            Quản lý đơn hàng
+          </Link>
+        </Menu.Item>
+
+        <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Quản lý sản phẩm">
+          <Menu.Item key="5" to>
+            <Link to="/order">
+              Danh sách sản phẩm
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="4" to>
+            <Link to="/customer">
+              Thêm sản phẩm
+            </Link>
+          </Menu.Item>
+        </SubMenu>
+
+        <SubMenu key="sub3" icon={<AppstoreOutlined />} title="Quản lý shipper">
+          <Menu.Item key="5">
+            <Link to="/order">
+              Danh sách duyệt đăng ký
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="4" to>
+            <Link to="/customer">
+              Danh sách shipper
+            </Link>
+          </Menu.Item>
+        </SubMenu>
+
+        <SubMenu key="sub4" icon={<AppstoreOutlined />} title="Quản lý khách hàng">
+          <Menu.Item key="5">
+            <Link to="/order">
+              Danh sách duyệt đăng ký
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="4" to>
+            <Link to="/customer">
+              Danh sách shipper
+            </Link>
+          </Menu.Item>
+        </SubMenu>
+
+      </Menu>
     </div>
   );
 }

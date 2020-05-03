@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     BrowserRouter as Router,
-    Route, 
+    Route,
     Switch
 } from 'react-router-dom';
 
@@ -24,7 +24,7 @@ function App() {
 				{/* Main Content */}
 				<div id="content">
 					<Header/>
-					
+
 					{showRoute(routes)}
 				</div>
 				{/* End of Main Content */}
@@ -40,7 +40,7 @@ function App() {
 
 function showRoute(routes){
 	let xhtml = null;
-	
+
 	if(routes.length > 0 ){
 		xhtml = routes.map((route, index)=> {
 			return (

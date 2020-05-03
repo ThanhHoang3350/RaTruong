@@ -25,7 +25,7 @@ function Customer(customer,getCustomer) {
 	let id = item.id
 	const dispatch = useDispatch();
 	const deleteCustomer =(id)=> {
-		axios.delete(`http://localhost:4000/deleteUser/${id}`)	
+		axios.delete(`http://localhost:4000/deleteUser/${id}`)
 		.catch ( err => { alert(err)})
 		Swal.fire(
 			'Deleted!',
@@ -35,7 +35,7 @@ function Customer(customer,getCustomer) {
 		dispatch(actChangeNotify(notify.NOTI_TYPE_SUCCESS, notify.NOTI_REMOVE_CUSTOMER_TITLE, notify.NOTI_REMOVE_CUSTOMER_MESSAGE));
 		return axios;
     }
-	
+
 	const HandleDelete = (id) => {
 		Swal.fire({
 			title: 'Are you sure?',
@@ -54,30 +54,12 @@ function Customer(customer,getCustomer) {
 				'error'
 			  )
 			}
-		  })	
-		  
+		  })
+
 	}
 
   return (
-        <tbody>
-            <tr>
-				<td>{item.id}</td>
-				<td>{item.email}</td>
-				<td>{item.emailVerified}</td>
-				<td>{item.phoneNumber}</td>
-				<td>{item.firstName} {item.lastName}</td>
-				<td>{item.createdAt}</td>
-				<td>{item.updatedAt}</td>
-				<td>
-					<Link to={`customer/${item.id}`}>
-						<button type="button" className="btn btn-warning btn-sm">
-							sửa
-						</button>
-					</Link>
-                    <button onClick={()=> HandleDelete(id)} type="button" className="btn btn-danger btn-sm">xóa</button>
-                </td>
-            </tr>
-        </tbody>
+    <div>zzzz</div>
   );
 }
 

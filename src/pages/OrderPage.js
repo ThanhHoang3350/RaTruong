@@ -34,54 +34,7 @@ function OrderPage() {
 	}
 
 	return (
-		<div className="container-fluid">
-        {/* Page Heading */}
-        <h1 className="h3 mb-2 text-gray-800">Quản lý đơn hàng</h1>
-        <p className="mb-4">Thông tin chi tiết những đơn hàng</p>
-        {/* DataTales Example */}
-        <div className="card shadow mb-4">
-            <div className="card-header py-3">
-                <h6 className="m-0 font-weight-bold text-primary">Danh sách đơn hàng</h6>
-            </div>
-            <div className="card-body">
-                <div className="table-responsive">
-                    <table className="table table-bordered" id="dataTable" width="100%" cellSpacing={0}>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Customer Name</th>
-                                <th>Description</th>
-                                <th>Address</th>
-                                <th>Shipper Name</th>
-                                <th>Feedback</th>
-                                <th>Service Name</th>
-                                <th>Rating</th>
-                                <th>Created At</th>
-                                <th>Update At</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th>ID</th>
-                                <th>Customer Name</th>
-                                <th>Description</th>
-                                <th>Address</th>
-                                <th>Shipper Name</th>
-                                <th>Feedback</th>
-                                <th>Service Name</th>
-                                <th>Rating</th>
-                                <th>Created At</th>
-                                <th>Update At</th>
-                                <th></th>
-                            </tr>
-                        </tfoot>
-                        {xhtml}
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div>Order</div>
   );
 }
 
