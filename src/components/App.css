@@ -1,11 +1,8 @@
-.Sidebar {
-  width: 10% !important;
-}
-
 .Content {
-  width: 90% !important;
+  width: 300em !important;
 }
 
 .Boss {
   width: 100% !important;
 }
+

@@ -24,7 +24,7 @@ function AddCustomerPage() {
 		createdAt:'',
 		updatedAt:''
 	});
-	
+
 	const handleChange = evt => {
 		const name = evt.target.name;
     	const newValue = evt.target.value;
@@ -46,12 +46,12 @@ function AddCustomerPage() {
 			updatedAt: customer.updatedAt
 		}
 		console.log(datapost);
-		return axios.post(`http://localhost:4000/adduser`, datapost)	
+		return axios.post(`http://localhost:4000/adduser`, datapost)
 	}
 	const handleSubmit = (event) => {
 		addCustomer()
 			.then(data => {
-				dispatch(actChangeNotify(notify.NOTI_TYPE_SUCCESS, notify.NOTI_ADD_CUSTOMER_TITLE, notify.NOTI_ADD_CUSTOMER_MESSGAE));	
+				dispatch(actChangeNotify(notify.NOTI_TYPE_SUCCESS, notify.NOTI_ADD_CUSTOMER_TITLE, notify.NOTI_ADD_CUSTOMER_MESSGAE));
 			})
 			.catch((error) => {
 				dispatch(actChangeNotify(notify.NOTI_TYPE_DANGER, notify.NOTI_ADD_CUSTOMER_FAIL_TITLE, error.message ));
@@ -81,11 +81,11 @@ function AddCustomerPage() {
 						<div className="form-group">
 							<label htmlFor="pwd">Password:</label>
 							<input type="input" value={customer.password} onChange={handleChange} name="password" className="form-control" />
-						</div>	
+						</div>
 						<div className="form-group">
 							<label htmlFor="pwd">Phone Number:</label>
 							<input type="input" value={customer.phoneNumber} onChange={handleChange} name="phoneNumber" className="form-control" />
-						</div>	
+						</div>
 						<div className="form-group">
 							<label htmlFor="pwd">Create At:</label>
 							<input type="datetime-local" value={customer.createdAt} onChange={handleChange} name="createdAt" className="form-control" />
@@ -93,7 +93,7 @@ function AddCustomerPage() {
 						<div className="form-group">
 							<label htmlFor="pwd">Update At:</label>
 							<input type="datetime-local" value={customer.updatedAt} onChange={handleChange} name="updatedAt" className="form-control" />
-						</div>				
+						</div>
 						<button type="submit" className="btn btn-success btn-lg">Submit</button>
 						<Link to={`/customer`}>
 							<button type="button" className="btn btn-lg">
@@ -101,7 +101,7 @@ function AddCustomerPage() {
 							</button>
 						</Link>
 					</form>
-					
+
 				</div>
 			</div>
 		</div>

@@ -4,6 +4,7 @@ import {
     Route,
     Switch
 } from 'react-router-dom';
+import './App.css';
 
 import Notify from './Notify';
 import Header from './Header';
@@ -16,11 +17,11 @@ function App() {
 	<Router>
 		<div id="wrapper">
 			{/* Sidebar */}
-			<Sidebar/>
+			<Sidebar />
 			<Notify/>
 			{/* End of Sidebar */}
 			{/* Content Wrapper */}
-			<div id="content-wrapper" className="d-flex flex-column">
+			<div id="content-wrapper" className="d-flex flex-column Content">
 				{/* Main Content */}
 				<div id="content">
 					<Header/>
