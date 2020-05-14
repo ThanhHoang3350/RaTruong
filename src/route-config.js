@@ -11,7 +11,6 @@ import UpdateCustomerPage from './pages/UpdateCustomerPage';
 import UpdateShipperPage from './pages/UpdateShipperPage';
 import AddCustomerPage from './pages/AddCustomerPage';
 import AddShipperPage from './pages/AddShipperPage';
-import TablePage from './pages/TablePage';
 
 
 const routes=[
@@ -69,11 +68,6 @@ const routes=[
         path: '/login',
         exact: true,
         main: ()=> <LoginPage/>
-    },
-    {
-        path: '/table',
-        exact:true,
-        main: ()=> <TablePage/>
     },
 ];
 
