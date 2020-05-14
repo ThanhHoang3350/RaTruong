@@ -55,7 +55,7 @@ function Sidebar() {
 
           <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Quản lý sản phẩm">
             <Menu.Item key="3" to>
-              <Link to="/order">
+              <Link to="/product">
                 Danh sách sản phẩm
               </Link>
             </Menu.Item>
@@ -126,7 +126,7 @@ function Sidebar() {
 
           <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Quản lý sản phẩm">
             <Menu.Item key="3" to>
-              <Link to="/order">
+              <Link to="/product">
                 Danh sách sản phẩm
               </Link>
             </Menu.Item>

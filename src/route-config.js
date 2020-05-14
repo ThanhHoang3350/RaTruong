@@ -4,12 +4,14 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import NotFoundPage from './pages/NotFoundPage';
 import CustomerPage from './pages/CustomerPage';
+import ProductPage from './pages/ProductPage';
 import EmployeesPage from './pages/EmployeesPage';
 import OrderPage from './pages/OrderPage';
 import UpdateCustomerPage from './pages/UpdateCustomerPage';
 import UpdateShipperPage from './pages/UpdateShipperPage';
 import AddCustomerPage from './pages/AddCustomerPage';
 import AddShipperPage from './pages/AddShipperPage';
+
 
 const routes=[
     {
@@ -21,6 +23,11 @@ const routes=[
         path: '/order',
         exact: true,
         main: ()=> <OrderPage/>
+    },
+    {
+        path: '/product',
+        exact: true,
+        main: ()=> <ProductPage/>
     },
     {
         path: '/employees',
