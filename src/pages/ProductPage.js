@@ -7,10 +7,10 @@ import { Table, Button, Space } from 'antd';
 function ProductPage() {
   let [ filteredInfo, setFilteredInfo ] = useState(null);
   let [ sortedInfo, setsortedInfo ] = useState(null);
+  const [ products, setProducts ] = useState([]);
 
   const handleChange = (pagination, filters, sorter) => {
     setFilteredInfo(filters)
-    console.log(sorter)
     setsortedInfo(sorter)
   };
 
@@ -30,35 +30,39 @@ function ProductPage() {
     })
   };
 
+  useEffect(() => {
+    const abortController = new AbortController();
+    fetch('http://localhost:4000/product/',{ signal: abortController.signal})
+        .then(response => response.json())
+        .then(response => setProducts(response.data))
+        .catch(err=>console.error(err))
+    return () => {
+        abortController.abort();
+    };
+  }
+  ,[])
+
   sortedInfo = sortedInfo || {};
   filteredInfo = filteredInfo || {};
 
-  const data = [
-    {
-      key: '1',
-      name: 'John Brown',
+  // const data = products.map(p => {
+  //   return ({
+  //     key: p.id,
+  //     name: p.productName,
+  //     price: p.price,
+  //     info: p.info,
+  //   })
+  // });
+
+  const data = [];
+  for (let i = 0; i < 46; i++) {
+    data.push({
+      key: i,
+      name: `Edward King ${i}`,
       age: 32,
-      address: 'New York No. 1 Lake Park',
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park',
-    },
-    {
-      key: '4',
-      name: 'Jim Red',
-      age: 32,
-      address: 'London No. 2 Lake Park',
-    },
-  ];
+      address: `London, Park Lane no. ${i}`,
+    });
+  }
 
   const columns = [
     {
@@ -76,25 +80,25 @@ function ProductPage() {
       ellipsis: true,
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
-      sorter: (a, b) => a.age - b.age,
-      sortOrder: sortedInfo.columnKey === 'age' && sortedInfo.order,
-      ellipsis: true,
-    },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
+      title: 'Info',
+      dataIndex: 'info',
+      key: 'info',
       filters: [
         { text: 'London', value: 'London' },
         { text: 'New York', value: 'New York' },
       ],
-      filteredValue: filteredInfo.address || null,
-      onFilter: (value, record) => record.address.includes(value),
-      sorter: (a, b) => a.address.length - b.address.length,
-      sortOrder: sortedInfo.columnKey === 'address' && sortedInfo.order,
+      filteredValue: filteredInfo.info || null,
+      onFilter: (value, record) => record.info.includes(value),
+      sorter: (a, b) => a.info.length - b.info.length,
+      sortOrder: sortedInfo.columnKey === 'info' && sortedInfo.order,
+      ellipsis: true,
+    },
+    {
+      title: 'Price',
+      dataIndex: 'price',
+      key: 'price',
+      sorter: (a, b) => a.price - b.price,
+      sortOrder: sortedInfo.columnKey === 'price' && sortedInfo.order,
       ellipsis: true,
     },
   ]

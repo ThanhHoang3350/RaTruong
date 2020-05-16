@@ -8,7 +8,8 @@ const app = express();
 var SELLECT_ALL_CUSTOMER_QUERY = "SELECT * FROM user WHERE user.type = 'customer'";
 var SELLECT_ALL_SHIPPER_QUERY = "SELECT * FROM user WHERE user.type = 'shipper'";
 var SELLECT_BOOKING_QUERY = 'SELECT booking.id, user.firstName, user.lastName, booking.shipperId, service.name, booking.description, booking.address, booking.rating,booking.feedback,booking.createdAt,booking.updatedAt FROM booking INNER JOIN user ON user.id = booking.customerId INNER JOIN service ON booking.serviceId = service.id';
-var DELETE_FROM_USER= "DELETE FROM user WHERE id = ?"
+var SELLECT_ALL_PRODUCT_QUERY = "SELECT * FROM product";
+var DELETE_FROM_USER = "DELETE FROM user WHERE id = ?";
 
 const connection = mysql.createConnection({
  	host: 'localhost',
@@ -53,6 +54,20 @@ app.get('/customer', (req, res)=>{
 			})
 		}
 	});
+});
+
+//show product
+app.get('/product', (req, res)=>{
+  connection.query(SELLECT_ALL_PRODUCT_QUERY, (err,results)=>{
+    if(err) {
+      return res.send(err)
+    }
+    else {
+      return res.json({
+        data: results
+      })
+    }
+  });
 });
 
 // delete user

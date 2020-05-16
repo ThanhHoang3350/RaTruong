@@ -17,7 +17,7 @@ const store = createStore(
 	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
-			
+
 firebaseApp.auth().onAuthStateChanged((user) => {
 	if (user) {
 		let userInfo = {
@@ -28,7 +28,7 @@ firebaseApp.auth().onAuthStateChanged((user) => {
 		usersRef.child(user.uid).once('value').then(data => {
 			let info = data.val();
 			userInfo.username = info.website;
-			store.dispatch(actLogin(userInfo));			
+			store.dispatch(actLogin(userInfo));
 		})
 	} else {
 		// User is signed out.
