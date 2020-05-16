@@ -1,43 +1,93 @@
-import React, {useEffect,useState} from 'react';
-import {useSelector} from 'react-redux';
-import {Redirect} from 'react-router-dom'
+import React, {useEffect, useState } from 'react';
+import 'antd/dist/antd.css';
+import './OderPage.css';
+import { Redirect, Link } from 'react-router-dom';
+import { Table, Tag, Space, Button } from 'antd';
 
-import Order from '../components/Order';
+function OrderPage ()
+{
+  let [ filteredInfo, setFilteredInfo ] = useState(null);
+  let [ sortedInfo, setsortedInfo ] = useState(null);
 
-function OrderPage() {
-    const [booking, setBooking] = useState([]);
-    const [employees, setEmployees] = useState([]);
-    const user = useSelector((state) => state.user);
-	const getBooking =()=> {
-        fetch('http://localhost:4000/booking/')
-            .then(response => response.json())
-            .then(response => setBooking(response.data))
-            .catch(err=>console.error(err))
-        fetch('http://localhost:4000/shipper/')
-            .then(response => response.json())
-            .then(response => setEmployees(response.data))
-            .catch(err=>console.error(err))
-    }
-	useEffect(getBooking,[])
+  const handleChange = (pagination, filters, sorter) => {
+    setFilteredInfo(filters)
+    console.log(sorter)
+    setsortedInfo(sorter)
+  };
 
-	let xhtml = null;
-    if(booking.length > 0){
-        xhtml = booking.map((booking, index)=> {
-            return (
-				<Order key={index} booking={booking} employees={employees} index={index}/>
-            );
-        });
-    }
+  const clearFilters = () => {
+    setFilteredInfo(null)
+  };
 
-	if(0 > 1) {
-		return <Redirect to="/login" />;
-	}
+  const clearAll = () => {  
+    setFilteredInfo(null)
+    setsortedInfo(null)
+  };
 
-	return (
-    <div>Order</div>
-  );
-}
+  const setAgeSort = () => {
+    setsortedInfo({
+      order: 'descend',
+      columnKey: 'age',
+    })
+    };
 
-
-
-export default OrderPage;
+    sortedInfo = sortedInfo || {};
+    filteredInfo = filteredInfo || {};
+  const columns = [
+    {
+      title: 'Full Name',
+      width: 100,
+      dataIndex: 'name',
+      key: 'name',
+      fixed: 'left',
+    },
+    {
+      title: 'Age',
+      width: 100,
+      dataIndex: 'age',
+      key: 'age',
+      fixed: 'left',
+    },
+    { title: 'Column 1', dataIndex: 'address', key: '1' },
+    { title: 'Column 2', dataIndex: 'address', key: '2' },
+    { title: 'Column 3', dataIndex: 'address', key: '3' },
+    { title: 'Column 4', dataIndex: 'address', key: '4' },
+    { title: 'Column 5', dataIndex: 'address', key: '5' },
+    { title: 'Column 6', dataIndex: 'address', key: '6' },
+    { title: 'Column 7', dataIndex: 'address', key: '7' },
+    { title: 'Column 8', dataIndex: 'address', key: '8' },
+    {
+      title: 'Action',
+      key: 'operation',
+      fixed: 'right',
+      width: 100,
+      render: () => <a>Duyet Don Hang</a>,
+    },
+  ];
+  
+  const data = [
+    {
+      key: '1',
+      name: 'John Brown',
+      age: 32,
+      address: 'New York Park',
+    },
+    {
+      key: '2',
+      name: 'Jim Green',
+      age: 40,
+      address: 'London Park',
+    },
+  ];
+  return (
+    <div>
+    <Space style={{ marginBottom: 16 }}>
+      <Button onClick={setAgeSort}>Sort age</Button>
+      <Button onClick={clearFilters}>Clear filters</Button>
+      <Button onClick={clearAll}>Clear filters and sorters</Button>
+    </Space>
+    <Table columns={columns} dataSource={data} onChange={handleChange} />
+  </div>
+        );
+ }
+ export default OrderPage;  
