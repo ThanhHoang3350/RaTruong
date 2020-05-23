@@ -8,7 +8,7 @@ const app = express();
 var SELLECT_ALL_CUSTOMER_QUERY = "SELECT * FROM user WHERE user.type = 'customer'";
 var SELLECT_ALL_SHIPPER_QUERY = "SELECT * FROM user WHERE user.type = 'shipper'";
 var SELLECT_BOOKING_QUERY = 'SELECT booking.id, user.firstName, user.lastName, booking.shipperId, service.name, booking.description, booking.address, booking.rating,booking.feedback,booking.createdAt,booking.updatedAt FROM booking INNER JOIN user ON user.id = booking.customerId INNER JOIN service ON booking.serviceId = service.id';
-var SELLECT_ALL_PRODUCT_QUERY = "SELECT * FROM product";
+var SELLECT_ALL_PRODUCT_QUERY = "SELECT * FROM Product";
 var DELETE_FROM_USER = "DELETE FROM user WHERE id = ?";
 
 const connection = mysql.createConnection({
@@ -20,7 +20,7 @@ const connection = mysql.createConnection({
 
 connection.connect(function(err) {
  	if (err) {
- 		return errr;
+ 		return err;
  	}else {
  		console.log('connected')
  	}
@@ -150,3 +150,4 @@ app.post('/adduser', (req, res)=>{
 app.listen(4000, () =>{
 	console.log(`Products server listening on port 4000`)
 });
+

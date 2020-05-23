@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Sidebar.css';
 import "antd/dist/antd.css";
 
+
 import { Route, NavLink, Link } from 'react-router-dom';
 import { Button, Radio, Space, Menu } from 'antd';
 
@@ -10,6 +11,7 @@ import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   PieChartOutlined,
+  BarChartOutlined,
   DesktopOutlined,
   ContainerOutlined,
   MailOutlined,
@@ -41,53 +43,53 @@ function Sidebar() {
           inlineCollapsed={collapsed}
         >
 
-          <Menu.Item key="1" icon={<PieChartOutlined />}>
+          <Menu.Item key="1" icon={<BarChartOutlined />}>
             <Link to="/order" className="Link">
-              Thống kê doanh thu
+              THỐNG KÊ DOANH THU
             </Link>
           </Menu.Item>
 
-          <Menu.Item key="2" icon={<PieChartOutlined />}>
+          <Menu.Item key="2" icon={<PieChartOutlined/>}>
             <Link to="/customer" className="Link">
-              Quản lý đơn hàng
+              QUẢN LÍ ĐƠN HÀNG
             </Link>
           </Menu.Item>
 
           <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Quản lý sản phẩm">
             <Menu.Item key="3" to>
               <Link to="/product">
-                Danh sách sản phẩm
+                DANH SÁCH SẢN PHẨM
               </Link>
             </Menu.Item>
             <Menu.Item key="4" to>
               <Link to="/customer">
-                Thêm sản phẩm
+                TÊN SẢN PHẨM
               </Link>
             </Menu.Item>
           </SubMenu>
 
-          <SubMenu key="sub3" icon={<AppstoreOutlined />} title="Quản lý shipper">
+          <SubMenu key="sub3" icon={<AppstoreOutlined />} title="QUẢN LÍ SHIPPER">
             <Menu.Item key="5">
               <Link to="/order">
-                Danh sách duyệt đăng ký
+                DANH SÁCH DUYỆT ĐĂNG KÍ
               </Link>
             </Menu.Item>
             <Menu.Item key="6" to>
               <Link to="/customer">
-                Danh sách shipper
+                DANH SÁCH NGƯỜI GIAO HÀNG
               </Link>
             </Menu.Item>
           </SubMenu>
 
-          <SubMenu key="sub4" icon={<AppstoreOutlined />} title="Quản lý khách hàng">
+          <SubMenu key="sub4" icon={<AppstoreOutlined />} title="QUẢN LÍ KHÁCH HÀNG">
             <Menu.Item key="7">
               <Link to="/order">
-                Danh sách duyệt đăng ký
+                DANH SÁCH DUYỆT ĐĂNG KÍ
               </Link>
             </Menu.Item>
             <Menu.Item key="8" to>
               <Link to="/customer">
-                Danh sách shipper
+                DANH SÁCH NGƯỜI GIAO HÀNG
               </Link>
             </Menu.Item>
           </SubMenu>
@@ -112,53 +114,53 @@ function Sidebar() {
           inlineCollapsed={collapsed}
         >
 
-          <Menu.Item key="1" icon={<PieChartOutlined />}>
+          <Menu.Item key="1" icon={<BarChartOutlined />}>
             <Link to="/order" className="Link">
-              Thống kê doanh thu
+                THỐNG KÊ DOANH THU
             </Link>
           </Menu.Item>
 
           <Menu.Item key="2" icon={<PieChartOutlined />}>
             <Link to="/customer" className="Link">
-              Quản lý đơn hàng
+              QUẢN LÍ ĐƠN HÀNG
             </Link>
           </Menu.Item>
 
-          <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Quản lý sản phẩm">
+          <SubMenu key="sub2" icon={<AppstoreOutlined />} title="QUẢN LÍ SẢN PHẨM">
             <Menu.Item key="3" to>
               <Link to="/product">
-                Danh sách sản phẩm
+                DANH SÁCH SẢN PHẨM
               </Link>
             </Menu.Item>
             <Menu.Item key="4" to>
-              <Link to="/customer">
-                Thêm sản phẩm
+              <Link to="/addproduct">
+                THÊM SẢN PHẨM
               </Link>
             </Menu.Item>
           </SubMenu>
 
-          <SubMenu key="sub3" icon={<AppstoreOutlined />} title="Quản lý shipper">
+          <SubMenu key="sub3" icon={<AppstoreOutlined />} title="QUẢN LÍ NGƯỜI GIAO HÀNG">
             <Menu.Item key="5">
               <Link to="/order">
-                Danh sách duyệt đăng ký
+                DANH SÁCH DUYỆT ĐĂNG KÍ
               </Link>
             </Menu.Item>
             <Menu.Item key="6" to>
               <Link to="/customer">
-                Danh sách shipper
+                DANH SÁCH SHIPPER
               </Link>
             </Menu.Item>
           </SubMenu>
 
-          <SubMenu key="sub4" icon={<AppstoreOutlined />} title="Quản lý khách hàng">
+          <SubMenu key="sub4" icon={<AppstoreOutlined />} title="QUẢN LÍ KHÁCH HÀNG">
             <Menu.Item key="7">
               <Link to="/order">
-                Danh sách duyệt đăng ký
+                DANH SÁCH DUYỆT ĐĂNG KÍ
               </Link>
             </Menu.Item>
             <Menu.Item key="8" to>
               <Link to="/customer">
-                Danh sách shipper
+                DANH SÁCH SHIPPER
               </Link>
             </Menu.Item>
           </SubMenu>
