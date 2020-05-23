@@ -1,5 +1,5 @@
 import React, {useEffect,useState} from 'react';
-import './PageCustomer.css';
+//import './PageCustomer.css';
 import { useSelector } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom'
 

@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 export default class Axios {
-   
+
     static getDelete(id){
 
         let url = `${configs.BASE_URL}artists/${id}`;
