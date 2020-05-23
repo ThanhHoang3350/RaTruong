@@ -14,8 +14,8 @@ var DELETE_FROM_USER = "DELETE FROM user WHERE id = ?";
 const connection = mysql.createConnection({
  	host: 'localhost',
  	user: 'root',
- 	password: '12345678',
- 	database: 'MarketOnline'
+ 	password: '',
+ 	database: 'KingBook'
 });
 
 connection.connect(function(err) {

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import './ProductPage.css';
+//import './PageCustomer.css';
 import { Redirect, Link } from 'react-router-dom';
 import { Table, Button, Space } from 'antd';
 
 function ProductPage() {
-  let [ filteredInfo, setFilteredInfo ] = useState(null); 
+  let [ filteredInfo, setFilteredInfo ] = useState(null);
   let [ sortedInfo, setsortedInfo ] = useState(null);
   const [ products, setProducts ] = useState([]);
 
@@ -18,7 +18,7 @@ function ProductPage() {
     setFilteredInfo(null)
   };
 
-  const clearAll = () => {  
+  const clearAll = () => {
     setFilteredInfo(null)
     setsortedInfo(null)
   };
@@ -26,15 +26,9 @@ function ProductPage() {
   const setAgeSort = () => {
     setsortedInfo({
       order: 'descend',
-      columnKey: 'price',
+      columnKey: 'age',
     })
-  };  
-  const setFilter = () =>{
-    setFilter()
-    {
-      
-    }
-  }
+  };
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -48,49 +42,39 @@ function ProductPage() {
   }
   ,[])
 
+  console.log(products);
+
   sortedInfo = sortedInfo || {};
   filteredInfo = filteredInfo || {};
 
-  // const data = products.map(p => {
-  //   return ({
-  //     key: p.id,
-  //     name: p.productName,
-  //     price: p.price,
-  //     info: p.info,
-  //   })
-  // });
+  const data = products.map(p => {
+    return ({
+      key: p.id,
+      name: p.productName,
+      price: p.price,
+      info: p.info,
+    })
+  });
 
-  const data = [];
-  for (let i = 0; i < 46; i++) {
-    data.push({
-      key: i,
-      name: `Edward King ${i}`,
-      price: `32${i}`,
-      info: `London, Park Lane no. ${i}`,
-    });
-  }
-  // <div>
-  //   {data.filter(name => name).map(filtedPerson =>(
-  //     <li>
-  //       {filteredPerson.name}
-  //     </li>
-  //   ))}
-  // </div>
-  
+  // const data = [];
+  // for (let i = 0; i < 46; i++) {
+  //   data.push({
+  //     key: i,
+  //     name: `Edward King ${i}`,
+  //     age: 32,
+  //     address: `London, Park Lane no. ${i}`,
+  //   });
+  // }
+
   const columns = [
     {
-      title: 'Title',
+      title: 'Name',
       dataIndex: 'name',
       key: 'name',
       filters: [
-        {
-          text:'Jim', value:'Jim'
-        },
-        {
-          text:'Jim', value: 'Jim'
-        }
+        { text: 'Joe', value: 'Joe' },
+        { text: 'Jim', value: 'Jim' },
       ],
-    
       filteredValue: filteredInfo.name || null,
       onFilter: (value, record) => record.name.includes(value),
       sorter: (a, b) => a.name.length - b.name.length,
@@ -112,7 +96,7 @@ function ProductPage() {
       ellipsis: true,
     },
     {
-      title: 'price',
+      title: 'Price',
       dataIndex: 'price',
       key: 'price',
       sorter: (a, b) => a.price - b.price,
@@ -120,17 +104,17 @@ function ProductPage() {
       ellipsis: true,
     },
   ]
+
   return (
     <div>
       <Space style={{ marginBottom: 16 }}>
-        <Button onClick={setAgeSort}>Sap xep gia ban giam dan</Button>
+        <Button onClick={setAgeSort}>Sort age</Button>
         <Button onClick={clearFilters}>Clear filters</Button>
         <Button onClick={clearAll}>Clear filters and sorters</Button>
-        <Button onClick={setFilter}>Tim theo ten </Button>
       </Space>
       <Table columns={columns} dataSource={data} onChange={handleChange} />
     </div>
   );
-} 
+}
 
 export default ProductPage;
