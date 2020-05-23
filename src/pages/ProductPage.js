@@ -60,66 +60,66 @@ function ProductPage() {
   //   })
   // });
 
-  // const data = [];
-  // for (let i = 0; i < 46; i++) {
-  //   data.push({
-  //     key: i,
-  //     name: `Edward King ${i}`,
-  //     price: `32${i}`,
-  //     info: `London, Park Lane no. ${i}`,
-  //   });
-  // }
-  // // <div>
-  // //   {data.filter(name => name).map(filtedPerson =>(
-  // //     <li>
-  // //       {filteredPerson.name}
-  // //     </li>
-  // //   ))}
-  // // </div>
+  const data = [];
+  for (let i = 0; i < 46; i++) {
+    data.push({
+      key: i,
+      name: `Edward King ${i}`,
+      price: `32${i}`,
+      info: `London, Park Lane no. ${i}`,
+    });
+  }
+  // <div>
+  //   {data.filter(name => name).map(filtedPerson =>(
+  //     <li>
+  //       {filteredPerson.name}
+  //     </li>
+  //   ))}
+  // </div>
   
-  // const columns = [
-  //   {
-  //     title: 'Title',
-  //     dataIndex: 'name',
-  //     key: 'name',
-  //     filters: [
-  //       {
-  //         text:'Jim', value:'Jim'
-  //       },
-  //       {
-  //         text:'Jim', value: 'Jim'
-  //       }
-  //     ],
+  const columns = [
+    {
+      title: 'Title',
+      dataIndex: 'name',
+      key: 'name',
+      filters: [
+        {
+          text:'Jim', value:'Jim'
+        },
+        {
+          text:'Jim', value: 'Jim'
+        }
+      ],
     
-  //     filteredValue: filteredInfo.name || null,
-  //     onFilter: (value, record) => record.name.includes(value),
-  //     sorter: (a, b) => a.name.length - b.name.length,
-  //     sortOrder: sortedInfo.columnKey === 'name' && sortedInfo.order,
-  //     ellipsis: true,
-  //   },
-  //   {
-  //     title: 'Info',
-  //     dataIndex: 'info',
-  //     key: 'info',
-  //     filters: [
-  //       { text: 'London', value: 'London' },
-  //       { text: 'New York', value: 'New York' },
-  //     ],
-  //     filteredValue: filteredInfo.info || null,
-  //     onFilter: (value, record) => record.info.includes(value),
-  //     sorter: (a, b) => a.info.length - b.info.length,
-  //     sortOrder: sortedInfo.columnKey === 'info' && sortedInfo.order,
-  //     ellipsis: true,
-  //   },
-  //   {
-  //     title: 'price',
-  //     dataIndex: 'price',
-  //     key: 'price',
-  //     sorter: (a, b) => a.price - b.price,
-  //     sortOrder: sortedInfo.columnKey === 'price' && sortedInfo.order,
-  //     ellipsis: true,
-  //   },
-  // ]
+      filteredValue: filteredInfo.name || null,
+      onFilter: (value, record) => record.name.includes(value),
+      sorter: (a, b) => a.name.length - b.name.length,
+      sortOrder: sortedInfo.columnKey === 'name' && sortedInfo.order,
+      ellipsis: true,
+    },
+    {
+      title: 'Info',
+      dataIndex: 'info',
+      key: 'info',
+      filters: [
+        { text: 'London', value: 'London' },
+        { text: 'New York', value: 'New York' },
+      ],
+      filteredValue: filteredInfo.info || null,
+      onFilter: (value, record) => record.info.includes(value),
+      sorter: (a, b) => a.info.length - b.info.length,
+      sortOrder: sortedInfo.columnKey === 'info' && sortedInfo.order,
+      ellipsis: true,
+    },
+    {
+      title: 'price',
+      dataIndex: 'price',
+      key: 'price',
+      sorter: (a, b) => a.price - b.price,
+      sortOrder: sortedInfo.columnKey === 'price' && sortedInfo.order,
+      ellipsis: true,
+    },
+  ]
   return (
     <div>
       <Space style={{ marginBottom: 16 }}>
@@ -128,7 +128,7 @@ function ProductPage() {
         <Button onClick={clearAll}>Clear filters and sorters</Button>
         <Button onClick={setFilter}>Tim theo ten </Button>
       </Space>
-      {/* <Table columns={columns} dataSource={data} onChange={handleChange} /> */}
+      <Table columns={columns} dataSource={data} onChange={handleChange} />
     </div>
   );
 } 
