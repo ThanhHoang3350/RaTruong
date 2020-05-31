@@ -9,6 +9,8 @@ var SELLECT_ALL_CUSTOMER_QUERY = "SELECT * FROM user WHERE user.type = 'customer
 var SELLECT_ALL_SHIPPER_QUERY = "SELECT * FROM user WHERE user.type = 'shipper'";
 var SELLECT_BOOKING_QUERY = 'SELECT booking.id, user.firstName, user.lastName, booking.shipperId, service.name, booking.description, booking.address, booking.rating,booking.feedback,booking.createdAt,booking.updatedAt FROM booking INNER JOIN user ON user.id = booking.customerId INNER JOIN service ON booking.serviceId = service.id';
 var SELLECT_ALL_PRODUCT_QUERY = "SELECT * FROM Product";
+var SELLECT_ALL_TYPEPRODUCT_QUERY = "SELECT * FROM TypeProduct";
+var SELLECT_ALL_MARKET_QUERY = "SELECT * FROM Market";
 var DELETE_FROM_USER = "DELETE FROM user WHERE id = ?";
 
 const connection = mysql.createConnection({
@@ -40,6 +42,34 @@ app.get('/booking', (req, res)=>{
 			})
 		}
 	});
+});
+
+//show type-product
+app.get('/typeproduct', (req, res)=>{
+  connection.query(SELLECT_ALL_TYPEPRODUCT_QUERY, (err,results)=>{
+    if(err) {
+      return res.send(err)
+    }
+    else {
+      return res.json({
+        data: results
+      })
+    }
+  });
+});
+
+//show market
+app.get('/market', (req, res)=>{
+  connection.query(SELLECT_ALL_MARKET_QUERY, (err,results)=>{
+    if(err) {
+      return res.send(err)
+    }
+    else {
+      return res.json({
+        data: results
+      })
+    }
+  });
 });
 
 //show customer
@@ -144,6 +174,22 @@ app.post('/adduser', (req, res)=>{
 			return res.send('successfully added user')
 		}
 	});
+});
+
+//thêm product
+app.post('/addproduct', (req, res)=>{
+  const { productName, price, info, image, mass, origin, status, typeId, marketId } = req.body;
+  console.log(req.body);
+  var INSERT_PRODUCT_QUERY = `INSERT INTO product (productName, price, info, image, mass, origin, status, typeId, marketId)
+  VALUES ('${productName}', '${price}', '${info}', '${image}', '${mass}', '${origin}', '${status}', '${typeId}', '${marketId}')`
+  connection.query(INSERT_PRODUCT_QUERY ,(err,result)=>{
+    if(err) {
+      return res.send(err)
+    }
+    else {
+      return res.send('successfully added product')
+    }
+  });
 });
 
 
