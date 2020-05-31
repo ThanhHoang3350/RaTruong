@@ -1,15 +1,15 @@
 const express = require('express');
 const cors = require ('cors');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 var bodyParser = require('body-parser');
 
 const app = express();
 
 var SELLECT_ALL_CUSTOMER_QUERY = "SELECT * FROM user WHERE user.type = 'customer'";
-var SELLECT_ALL_SHIPPER_QUERY = "SELECT * FROM user WHERE user.type = 'shipper'";
+var SELLECT_ALL_SHIPPER_QUERY = "SELECT * FROM Shipper";
 var SELLECT_BOOKING_QUERY = 'SELECT booking.id, user.firstName, user.lastName, booking.shipperId, service.name, booking.description, booking.address, booking.rating,booking.feedback,booking.createdAt,booking.updatedAt FROM booking INNER JOIN user ON user.id = booking.customerId INNER JOIN service ON booking.serviceId = service.id';
 var SELLECT_ALL_PRODUCT_QUERY = "SELECT * FROM Product";
-var DELETE_FROM_USER = "DELETE FROM user WHERE id = ?";
+//var DELETE_FROM_USER = "DELETE FROM user WHERE id = ?";
 
 const connection = mysql.createConnection({
  	host: 'localhost',
@@ -20,7 +20,7 @@ const connection = mysql.createConnection({
 
 connection.connect(function(err) {
  	if (err) {
- 		return err;
+ 		throw err;
  	}else {
  		console.log('connected')
  	}
@@ -57,7 +57,7 @@ app.get('/customer', (req, res)=>{
 });
 
 //show product
-app.get('/product', (req, res)=>{
+app.get('/products', (req, res)=>{
   connection.query(SELLECT_ALL_PRODUCT_QUERY, (err,results)=>{
     if(err) {
       return res.send(err)

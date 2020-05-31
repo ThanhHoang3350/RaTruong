@@ -6,10 +6,9 @@ import NotFoundPage from './pages/NotFoundPage';
 import ProductPage from './pages/ProductPage';
 import AddProductPage from './pages/AddProductPage';
 import OrderPage from './pages/OrderPage';
-//import UpdateCustomerPage from './pages/UpdateCustomerPage';
-import UpdateShipperPage from './pages/UpdateShipperPage';
 import AddCustomerPage from './pages/AddCustomerPage';
 import AddShipperPage from './pages/AddShipperPage';
+import ShipperPage from './pages/ShipperPage';
 
 
 const routes=[
@@ -39,9 +38,9 @@ const routes=[
         main: ()=> <AddShipperPage/>
     },
     {
-        path: '/shipper/:id',
+        path: '/shipper',
         exact: true,
-        main: ({match}) => <UpdateShipperPage match={match} />
+        main: ()=> <ShipperPage/>
     },
     {
         path: '',

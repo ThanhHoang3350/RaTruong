@@ -62,8 +62,8 @@ function Sidebar() {
               </Link>
             </Menu.Item>
             <Menu.Item key="4" to>
-              <Link to="/customer">
-                TÊN SẢN PHẨM
+              <Link to="/addproduct">
+                THÊM SẢN PHẨM
               </Link>
             </Menu.Item>
           </SubMenu>
@@ -146,7 +146,7 @@ function Sidebar() {
               </Link>
             </Menu.Item>
             <Menu.Item key="6" to>
-              <Link to="/customer">
+              <Link to="/shipper">
                 DANH SÁCH SHIPPER
               </Link>
             </Menu.Item>
@@ -159,7 +159,7 @@ function Sidebar() {
               </Link>
             </Menu.Item>
             <Menu.Item key="8" to>
-              <Link to="/customer">
+              <Link to="/shipper">
                 DANH SÁCH SHIPPER
               </Link>
             </Menu.Item>
