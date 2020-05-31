@@ -59,8 +59,20 @@ const AddCreateProductPage = () => {
   }
 
   const handleSubmit = (event) => {
-    console.log('hihi');
-    addProduct()
+    const datapost = {
+      productName: event.productName,
+      price: event.price,
+      info: event.info,
+      image: event.image,
+      mass: event.mass,
+      origin: event.origin,
+      status: event.status,
+      typeId: event.typeId,
+      marketId: event.marketId,
+    }
+    console.log('yyy', datapost);
+    return axios.post(`http://localhost:4000/addproduct`, datapost)
+    console.log('test', event);
     event.preventDefault();
   }
 
@@ -68,26 +80,26 @@ const AddCreateProductPage = () => {
   const [ markets, setMarkets ] = useState([]);
   const [ typeProducts, setTypeProducts ] = useState([]);
 
-  // const onGenderChange = value => {
-  //   switch (value) {
-  //     case 'male':
-  //       form.setFieldsValue({
-  //         note: 'Hi, man!',
-  //       });
-  //       return;
+  const onGenderChange = value => {
+    switch (value) {
+      case 'male':
+        form.setFieldsValue({
+          note: 'Hi, man!',
+        });
+        return;
 
-  //     case 'female':
-  //       form.setFieldsValue({
-  //         note: 'Hi, lady!',
-  //       });
-  //       return;
+      case 'female':
+        form.setFieldsValue({
+          note: 'Hi, lady!',
+        });
+        return;
 
-  //     case 'other':
-  //       form.setFieldsValue({
-  //         note: 'Hi there!',
-  //       });
-  //   }
-  // };
+      case 'other':
+        form.setFieldsValue({
+          note: 'Hi there!',
+        });
+    }
+  };
 
   const onFinish = values => {
     console.log(values);
@@ -128,9 +140,6 @@ const AddCreateProductPage = () => {
   }
   ,[])
 
-  console.log('zzz', markets);
-  console.log('zzz', typeProducts);
-
   const options =[
       {label: "MX1", value:"MX1"},
       {label: "MX2", value:"MX2"},
@@ -158,9 +167,8 @@ const AddCreateProductPage = () => {
         ]}
       >
         <Select
-          name="marketId"
           placeholder="Select a option and change input text above"
-          onChange={handleChange}
+          onChange={onGenderChange}
           allowClear
         >
           {
@@ -174,7 +182,7 @@ const AddCreateProductPage = () => {
       </Form.Item>
 
       <Form.Item
-        name="Loaị Sản Phẩm"
+        name="typeId"
         label="Loaị Sản Phẩm"
         rules={[
           {
@@ -183,9 +191,8 @@ const AddCreateProductPage = () => {
         ]}
       >
         <Select
-          name="typeproduct"
           placeholder="Select a option and change input text above"
-          //onChange={onGenderChange}
+          onChange={onGenderChange}
           allowClear
         >
           {
@@ -199,7 +206,7 @@ const AddCreateProductPage = () => {
       </Form.Item>
 
       <Form.Item
-        name="Trạng Thái Sản Phẩm"
+        name="status"
         label="Trạng Thái Sản Phẩm"
         rules={[
           {
@@ -209,12 +216,12 @@ const AddCreateProductPage = () => {
       >
         <Select
           placeholder="Select a option and change input text above"
-          //onChange={onGenderChange}
+          onChange={onGenderChange}
           allowClear
         >
-          <Option value="Bán Chạy">Bán Chạy</Option>
-          <Option value="Khuyến Mãi">Khuyến Mãi</Option>
-          <Option value="Nổi Bật">Nổi Bật</Option>
+          <Option value="bán chạy">Bán Chạy</Option>
+          <Option value="khuyến mãi">Khuyến Mãi</Option>
+          <Option value="nổi bật">Nổi Bật</Option>
         </Select>
       </Form.Item>
       <Form.Item
