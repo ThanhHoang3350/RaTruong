@@ -1,124 +1,334 @@
-import React, {useReducer, useState} from 'react';
-import MultiSelect from "react-multi-select-component";// 
-import {Link} from 'react-router-dom';
-// import axios from 'axios'
+import React, { useReducer, useState, useEffect } from 'react';
+import MultiSelect from "react-multi-select-component";//
+import { Link } from 'react-router-dom';
+import { Form, Input, Button, Select, message } from 'antd';
+import axios from 'axios'
 
-// import { actChangeNotify} from './../actions/index';
-// import * as notify from './../constants/Notify';
+import { actChangeNotify} from './../actions/index';
+import * as notify from './../constants/Notify';
 import { useDispatch } from 'react-redux';
-// import { Dropdown, Menu } from 'antd';
-;
+import { Dropdown, Menu, Upload } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 
-function AddCreateProductPage(){
-    const dispath = useDispatch();
+const props = {
+  name: 'file',
+  action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+  headers: {
+    authorization: 'authorization-text',
+  },
+  onChange(info) {
+    if (info.file.status !== 'uploading') {
+      console.log(info.file, info.fileList);
+    }
+    if (info.file.status === 'done') {
+      message.success(`${info.file.name} file uploaded successfully`);
+    } else if (info.file.status === 'error') {
+      message.error(`${info.file.name} file upload failed.`);
+    }
+  },
+}
+const { Option } = Select;
+
+const layout = {
+  labelCol: { span: 8 },
+  wrapperCol: { span: 16 },
+};
+const tailLayout = {
+  wrapperCol: { offset: 8, span: 16 },
+};
+const AddCreateProductPage = () => {
+  const dispatch = useDispatch();
     const [product, setProduct] = useReducer(
-        (state, newState) =>({...state, ...useState}),
-        {
-            id: '0',
-            productName: '',
-            price: '',
-            info: '',
-            mass: '',
-            origin:'',
-            status:'',
-            typeID:'',
-            marketID:'',
+    (state, newState) => ({...state, ...newState}),
+    {
+      productName: '',
+      price: '',
+      info: '',
+      image: '',
+      mass: '',
+      origin: '',
+      status: '',
+      typeId: '',
+      marketId: '',
+  })
+  const handleChange = evt => {
+    const name = evt.target.name;
+    const newValue = evt.target.value;
+      setProduct({[name]: newValue});
+  }
+  const addProduct =()=>{
+    const datapost = {
+      productName: product.productName,
+      price: product.price,
+      info: product.info,
+      image: product.image,
+      mass: product.mass,
+      origin: product.origin,
+      status: product.status,
+      typeId: product.typeId,
+      marketId: product.marketId,
+    }
+    console.log('yyy', datapost);
+    return axios.post(`http://localhost:4000/addproducts`, datapost)
+  }
+
+  const handleSubmit = (event) => {
+    const datapost = {
+      productName: event.productName,
+      price: event.price,
+      info: event.info,
+      image: event.image,
+      mass: event.mass,
+      origin: event.origin,
+      status: event.status,
+      typeId: event.typeId,
+      marketId: event.marketId,
+    }
+    console.log('yyy', datapost);
+    return axios.post(`http://localhost:4000/addproducts`, datapost)
+    console.log('test', event);
+    event.preventDefault();
+  }
+
+  const [form] = Form.useForm();
+  const [ markets, setMarkets ] = useState([]);
+  const [ typeProducts, setTypeProducts ] = useState([]);
+
+  const onGenderChange = value => {
+    switch (value) {
+      case 'male':
+        form.setFieldsValue({
+          note: 'Hi, man!',
         });
+        return;
+
+      case 'female':
+        form.setFieldsValue({
+          note: 'Hi, lady!',
+        });
+        return;
+
+      case 'other':
+        form.setFieldsValue({
+          note: 'Hi there!',
+        });
+    }
+  };
+
+  const onFinish = values => {
+    console.log(values);
+  };
+
+  const onReset = () => {
+    form.resetFields();
+  };
+
+  const onFill = () => {
+    form.setFieldsValue({
+      note: 'Hello world!',
+      gender: 'male',
+    });
+  };
 
 
-        const options =[
-            {label: "MX1", value:"MX1"},
-            {label: "MX2", value:"MX2"},
-            {label: "MX3", value:"MX3"},
-        ];
-        const options2 =[
-            {label: "KT1", value:"KT1"},
-            {label: "KT2", value:"KT2"},
-            {label: "KT3", value:"KT3"},
-        ];
-        const [selected, setSelected] = useState([]);
-        const [selected2, setSelected2] = useState([]);
+  useEffect(() => {
+    const abortController = new AbortController();
+    fetch('http://localhost:4000/market/',{ signal: abortController.signal})
+        .then(response => response.json())
+        .then(response => setMarkets(response.data))
+        .catch(err=>console.error(err))
+    return () => {
+        abortController.abort();
+    };
+  }
+  ,[])
 
+  useEffect(() => {
+    const abortController = new AbortController();
+    fetch('http://localhost:4000/typeproduct/',{ signal: abortController.signal})
+        .then(response => response.json())
+        .then(response => setTypeProducts(response.data))
+        .catch(err=>console.error(err))
+    return () => {
+        abortController.abort();
+    };
+  }
+  ,[])
+  return (
+    <Form {...layout} form={form} name="control-hooks" onFinish={handleSubmit}>
+      <Form.Item
+        name="marketId"
+        label="Tên Cửa Hàng"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Select
+          placeholder="Select a option and change input text above"
+          onChange={onGenderChange}
+          allowClear
+        >
+          {
+            markets.map(m => {
+              return (
+                <Option value={m.id}>{m.name}</Option>
+              )
+            })
+          }
+        </Select>
+      </Form.Item>
 
+      <Form.Item
+        name="typeId"
+        label="Loaị Sản Phẩm"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Select
+          placeholder="Select a option and change input text above"
+          onChange={onGenderChange}
+          allowClear
+        >
+          {
+            typeProducts.map(m => {
+              return (
+                <Option value={m.id}>{m.name}</Option>
+              )
+            })
+          }
+        </Select>
+      </Form.Item>
 
-        // const handleChange = evt =>{
-        //     const name = evt.target.name;
-        //     const newValue = evt.target.value;
-        //     setProduct({[name]: newValue});
-        // }
-        // const AddCreateProductPage =()=>{
-        //     const datapost ={
-        //         id:productName.id,
-        //         productName: product.productName,
-        //         price: product.price,
-        //         info: product.info,
-        //         mass: product.mass,
-        //         origin: product.origin,
-        //         status: product.status,
-        //         typeID: product.typeID,
-        //         marketID: product.marketID
-        //     }
-        //     console.log(datapost);
-        //     return axios.post()
-        // }
-        return (
-            <div className="container-fluid">
-                <div className="card shadow mb-4">
-                    <div className="card-header py-3">
-                        <h5 class="m-0 font-weight-bold text-primary">Them San Pham</h5>
-                    </div>
-                    <div className="card-body">
-                        <form className="user" onSubmit="">
-                            <div className="form-group">
-                                <label htmlFor="ID">ID</label>
-                                <input type="input" value="" onChange="" name="ID" class="form-control"></input>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="ProductName">Tên sản phẩm</label>
-                                <input type="input" value="" onChange="" name="ProductName" class="form-control"></input>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="Price">Giá</label>
-                                <input type="input" value="" onChange="" name="Price" class="form-control"></input>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="Info">Thông tin</label>
-                                <input type="input" value="" onChange="" name="Info" class="form-control"></input>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="Mass">Khối Lượng</label>
-                                <input type="input" value="" onChange="" name="Mass" class="form-control"></input>
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="Origin">Xuất xứ</label>
-                                <input type="input" value="" onChange="" name="Origin" class="form-control"></input>
-                            </div>
-                            <div>
-                                <pre>Tên Loại Sản Phẩm</pre>
-                                <MultiSelect
-                                    options={options}
-                                    value={selected}
-                                    onChange={setSelected}
-                                    labelledBy={"Select"}/>
-                            </div>
-                            <div>
-                                <pre>Tên Siêu Thị</pre>
-                                <MultiSelect
-                                    options={options2}
-                                    value={selected2}
-                                    onChange={setSelected2}
-                                    labelledBy={"Select"}/>
-                            </div>
-                            <button type="submit" className="btn btn-success btn-lg">Submit</button>
-                            <Link to={`/customer`}>
-							<button type="button" className="btn btn-lg">
-								Back
-							</button>
-						</Link>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        );
+      <Form.Item
+        name="status"
+        label="Trạng Thái Sản Phẩm"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Select
+          placeholder="Select a option and change input text above"
+          onChange={onGenderChange}
+          allowClear
+        >
+          <Option value="bán chạy">Bán Chạy</Option>
+          <Option value="khuyến mãi">Khuyến Mãi</Option>
+          <Option value="nổi bật">Nổi Bật</Option>
+        </Select>
+      </Form.Item>
+      <Form.Item
+        name="productName"
+        label="Product Name"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Input value={product.productName} onChange={handleChange} name="productName"/>
+      </Form.Item>
+
+      <Form.Item
+        name="price"
+        label="Price"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Input value={product.price} onChange={handleChange} name="price"/>
+      </Form.Item>
+
+      <Form.Item
+        name="info"
+        label="Info"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Input  value={product.info} onChange={handleChange} name="info"/>
+      </Form.Item>
+      <Form.Item
+        name="Image"
+        label="Image"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+       <Upload {...props}>
+          <Button>
+              <UploadOutlined /> Click to Upload
+         </Button>
+        </Upload>
+        {/* <Input  value={product.image} onChange={handleChange} name="image"/> */}
+      </Form.Item>
+      <Form.Item
+        name="mass"
+        label="Mass"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Input  value={product.mass} onChange={handleChange} name="mass"/>
+      </Form.Item>
+
+      <Form.Item
+        name="origin"
+        label="Origin"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
+      >
+        <Input  value={product.origin} onChange={handleChange} name="origin"/>
+      </Form.Item>
+      {/* <Form.Item
+        noStyle
+        shouldUpdate={(prevValues, currentValues) => prevValues.gender !== currentValues.gender}
+      >
+        {({ getFieldValue }) =>
+          getFieldValue('gender') === 'other' ? (
+            <Form.Item
+              name="customizeGender"
+              label="Customize Gender"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <Input onChange={handleChange} />
+            </Form.Item>
+          ) : null
+        }
+      </Form.Item> */}
+      <Form.Item {...tailLayout}>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+        <Button htmlType="button" onClick={onReset}>
+          Reset
+        </Button>
+        <Button type="link" htmlType="button" onClick={onFill}>
+          Fill form
+        </Button>
+      </Form.Item>
+    </Form>
+  );
 }
 export default AddCreateProductPage;

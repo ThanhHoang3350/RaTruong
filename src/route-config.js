@@ -9,13 +9,14 @@ import OrderPage from './pages/OrderPage';
 import AddCustomerPage from './pages/AddCustomerPage';
 import AddShipperPage from './pages/AddShipperPage';
 import ShipperPage from './pages/ShipperPage';
+import ListRegisterPage from './pages/ListRegisterPage'
 
 
 const routes=[
     {
-        path: '/order',
+        path: '/listregister',
         exact: true,
-        main: ()=> <OrderPage/>
+        main: ()=> <ListRegisterPage/>
     },
     {
         path: '/product',

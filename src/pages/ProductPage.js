@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import './ProductPage.css';
-import {Redirect, Link} from 'react-router-dom';
+//import './PageCustomer.css';
+import { Redirect, Link } from 'react-router-dom';
 import { Table, Button, Space } from 'antd';
 
 
 function ProductPage() {
-  let [ filteredInfo, setFilteredInfo ] = useState(null); 
+  let [ filteredInfo, setFilteredInfo ] = useState(null);
   let [ sortedInfo, setsortedInfo ] = useState(null);
   const [ products, setProducts ] = useState([]);
   
@@ -21,7 +22,7 @@ function ProductPage() {
     setFilteredInfo(null)
   };  
 
-  const clearAll = () => {  
+  const clearAll = () => {
     setFilteredInfo(null)
     setsortedInfo(null)
   };
@@ -37,8 +38,7 @@ function ProductPage() {
     {
       
     }
-  };
-
+  }
   useEffect(() => {
     const abortController = new AbortController();
     fetch('http://localhost:4000/products/',{ signal: abortController.signal})
@@ -69,10 +69,19 @@ function ProductPage() {
       marketid: p.marketid,
     })
   }); 
-  
+  // const data = [];
+  // for (let i = 0; i < 46; i++) {
+  //   data.push({
+  //     key: i,
+  //     name: `Edward King ${i}`,
+  //     age: 32,
+  //     address: `London, Park Lane no. ${i}`,
+  //   });
+  // }
+
   const columns = [
     {
-      title: 'ID',
+      title: 'Mã',
       dataIndex: 'id',
       key: 'id',
       filteredValue: filteredInfo.id || null,
@@ -82,7 +91,7 @@ function ProductPage() {
       ellipsis: true,
     },
     {
-      title: 'productName',
+      title: 'Tên sản phẩm',
       dataIndex:'productName',
       key: 'productName',
       filteredValue: filteredInfo.productName || null,
@@ -92,17 +101,7 @@ function ProductPage() {
       ellipsis: true,
     },
     {
-      title: 'Price',
-      dataIndex:'price',
-      key: 'price',
-      filteredValue: filteredInfo.price || null,
-      onFilter: (value, record) => record.price.includes(value),
-      sorter: (a, b) => a.price.length - b.price.length,
-      sortOrder: sortedInfo.columnKey === 'price' && sortedInfo.order,
-      ellipsis: true,
-    },
-    {
-      title: 'Info',
+      title: 'Thông tin',
       dataIndex:'info',
       key: 'info',
       filteredValue: filteredInfo.info|| null,
@@ -112,7 +111,8 @@ function ProductPage() {
       ellipsis: true,
     },
     {
-      title: 'mass',
+
+      title: 'Định lượng',
       dataIndex:'mass',
       key: 'mass',
       filteredValue: filteredInfo.mass|| null,
@@ -122,7 +122,7 @@ function ProductPage() {
       ellipsis: true,
     },
     {
-      title: 'origin',
+      title: 'Xuất xứ',
       dataIndex:'origin',
       key: 'origin',
       filteredValue: filteredInfo.origin|| null,
@@ -132,7 +132,7 @@ function ProductPage() {
       ellipsis: true,
     },
     {
-      title: 'status',
+      title: 'Trạng thái',
       dataIndex:'status',
       key: 'status',
       filteredValue: filteredInfo.status|| null,
@@ -142,17 +142,23 @@ function ProductPage() {
       ellipsis: true,
     },
     {
-      title: 'typeid',
+      title: 'Mã loại',
       dataIndex:'typeid',
       key: 'typeid',
       filteredValue: filteredInfo.typeid|| null,
       onFilter: (value, record) => record.typeid.includes(value),
       sorter: (a, b) => a.typeid.length - b.typeid.length,
       sortOrder: sortedInfo.columnKey === 'typeid' && sortedInfo.order,
+
+      title: 'Giá bán',
+      dataIndex: 'price',
+      key: 'price',
+      sorter: (a, b) => a.price - b.price,
+      sortOrder: sortedInfo.columnKey === 'price' && sortedInfo.order,
       ellipsis: true,
     },
     {
-      title: 'marketid',
+      title: 'Mã siêu thị',
       dataIndex:'marketid',
       key: 'marketid',
       filteredValue: filteredInfo.marketid|| null,
@@ -161,8 +167,8 @@ function ProductPage() {
       sortOrder: sortedInfo.columnKey === 'marketid' && sortedInfo.order,
       ellipsis: true, 
     },
-    
   ]
+
   return (
     <div>
       <Space style={{ marginBottom: 16 }}>
@@ -170,10 +176,13 @@ function ProductPage() {
         <Button onClick={clearFilters}>Clear filters</Button>
         <Button onClick={clearAll}>Clear filters and sorters</Button>
         <Button onClick={setFilter}>Tim theo ten </Button> */}
+        {/* <Button onClick={setAgeSort}>Sort age</Button>
+        <Button onClick={clearFilters}>Clear filters</Button>
+        <Button onClick={clearAll}>Clear filters and sorters</Button> */}
       </Space>
       <Table columns={columns} dataSource={data} onChange={handleChange} />
     </div>
   );
+  
 }
-
 export default ProductPage;

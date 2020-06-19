@@ -83,7 +83,7 @@ function Sidebar() {
 
           <SubMenu key="sub4" icon={<AppstoreOutlined />} title="QUẢN LÍ KHÁCH HÀNG">
             <Menu.Item key="7">
-              <Link to="/order">
+              <Link to="/register">
                 DANH SÁCH DUYỆT ĐĂNG KÍ
               </Link>
             </Menu.Item>
@@ -99,7 +99,7 @@ function Sidebar() {
       :
       <div className="Wrap-sidebar">
         <div className="Wrap-top-menu">
-          <div className="Logo-menu">KingBook</div>
+          <div className="Logo-menu">Market Online</div>
           <Button className="Button-menu" onClick={toggleCollapsed} style={{ marginBottom: 16 }}>
             {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined)}
           </Button>
@@ -141,7 +141,7 @@ function Sidebar() {
 
           <SubMenu key="sub3" icon={<AppstoreOutlined />} title="QUẢN LÍ NGƯỜI GIAO HÀNG">
             <Menu.Item key="5">
-              <Link to="/order">
+              <Link to="/listregister">
                 DANH SÁCH DUYỆT ĐĂNG KÍ
               </Link>
             </Menu.Item>

@@ -43,27 +43,27 @@ function AddShipperPage() {
 			createdAt: shipper.createdAt,
 			updatedAt: shipper.updatedAt
 		}
-		console.log(datapost);	
-		return axios.post(`http://localhost:4000/adduser`, datapost)	
+		console.log(datapost);
+		return axios.post(`http://localhost:4000/adduser`, datapost)
 	}
 	const handleSubmit = (event) => {
 		addShipper()
 			.then(data => {
-				dispatch(actChangeNotify(notify.NOTI_TYPE_SUCCESS, notify.NOTI_ADD_SHIPPER_TITLE, notify.NOTI_SIGNIN_SUCCESSFULL_MESSAGE));	
+				dispatch(actChangeNotify(notify.NOTI_TYPE_SUCCESS, notify.NOTI_ADD_SHIPPER_TITLE, notify.NOTI_SIGNIN_SUCCESSFULL_MESSAGE));
 			})
 			.catch((error) => {
 				dispatch(actChangeNotify(notify.NOTI_TYPE_DANGER, notify.NOTI_ADD_SHIPPER__FAIL_TITLE, error.message ));
 			});
 		event.preventDefault();
 	}
-	
+
 	return (
 		<div className="container-fluid">
 			<div className="card shadow mb-4">
 				<div className="card-header py-3">
 					<h6 className="m-0 font-weight-bold text-primary">Thêm thông tin shipper</h6>
 				</div>
-				<div className="card-body">		
+				<div className="card-body">
 					<form className="user" onSubmit={handleSubmit}>
 						<div className="form-group">
 							<label htmlFor="email">First name:</label>
@@ -80,15 +80,15 @@ function AddShipperPage() {
 						<div className="form-group">
 							<label htmlFor="pwd">Email Verified:</label>
 							<input type="input" value={shipper.emailVerified} onChange={handleChange} name="emailVerified" className="form-control" />
-						</div>	
+						</div>
 						<div className="form-group">
 							<label htmlFor="pwd">password:</label>
 							<input type="input" value={shipper.password} onChange={handleChange} name="password" className="form-control" />
-						</div>	
+						</div>
 						<div className="form-group">
 							<label htmlFor="pwd">Phone Number:</label>
 							<input type="input" value={shipper.phoneNumber} onChange={handleChange} name="phoneNumber" className="form-control" />
-						</div>	
+						</div>
 						<div className="form-group">
 							<label htmlFor="pwd">Create At:</label>
 							<input type="datetime-local" value={shipper.createdAt} onChange={handleChange} name="createdAt" className="form-control" />
@@ -96,7 +96,7 @@ function AddShipperPage() {
 						<div className="form-group">
 							<label htmlFor="pwd">Update At:</label>
 							<input type="datetime-local" value={shipper.updatedAt} onChange={handleChange} name="updatedAt" className="form-control" />
-						</div>							
+						</div>
 						<button type="submit" className="btn btn-success btn-lg">Submit</button>
 						<Link to={`/employees`}>
 							<button type="button" className="btn btn-lg">
