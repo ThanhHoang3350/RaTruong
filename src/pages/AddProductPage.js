@@ -264,12 +264,7 @@ const AddCreateProductPage = () => {
           },
         ]}
       >
-       <Upload {...props}>
-          <Button>
-              <UploadOutlined /> Click to Upload
-         </Button>
-        </Upload>
-        {/* <Input  value={product.image} onChange={handleChange} name="image"/> */}
+      <Input  value={product.image} onChange={handleChange} name="image"/>
       </Form.Item>
       <Form.Item
         name="mass"
