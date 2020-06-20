@@ -2,12 +2,48 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 //import './ProductPage.css';
 import {Redirect, Link} from 'react-router-dom';
-import { Table, Button, Space } from 'antd';
+import { Table, Button, Space, Modal, Form, Input } from 'antd';
 
 function ShipperPage() {
-  let [ filteredInfo, setFilteredInfo ] = useState(null); 
+  let [ filteredInfo, setFilteredInfo ] = useState(null);
   let [ sortedInfo, setsortedInfo ] = useState(null);
   const [ shipper, setShipper ] = useState([]);
+  const [ open, setOpen ] = useState(false);
+
+  const layout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 },
+  };
+  const tailLayout = {
+    wrapperCol: { offset: 8, span: 16 },
+  };
+
+  const onFinish = values => {
+    console.log('Success:', values);
+  };
+
+  const onFinishFailed = errorInfo => {
+    console.log('Failed:', errorInfo);
+  };
+
+  const handleOk = e => {
+    console.log(e);
+    setOpen(false);
+  };
+
+  const openModal = () => {
+    setOpen(true)
+  }
+
+  const testNoti = () => {
+    alert('Duyệt thành công');
+    setOpen(false);
+  }
+
+  const handleCancel = e => {
+    console.log(e);
+    setOpen(false);
+  };
 
   const handleChange = (pagination, filters, sorter) => {
     setFilteredInfo(filters)
@@ -18,7 +54,7 @@ function ShipperPage() {
     setFilteredInfo(null)
   };
 
-  const clearAll = () => {  
+  const clearAll = () => {
     setFilteredInfo(null)
     setsortedInfo(null)
   };
@@ -28,11 +64,11 @@ function ShipperPage() {
       order: 'descend',
       columnKey: 'age',
     })
-  };  
+  };
   const setFilter = () =>{
     setFilter()
     {
-      
+
     }
   };
 
@@ -47,8 +83,6 @@ function ShipperPage() {
     };
   }
   ,[])
-
-  console.log(shipper);
 
   sortedInfo = sortedInfo || {};
   filteredInfo = filteredInfo || {};
@@ -66,23 +100,6 @@ function ShipperPage() {
     })
   });
 
-  // const data = [];
-  // for (let i = 0; i < 46; i++) {
-  //   data.push({
-  //     key: i,
-  //     name: `Edward King ${i}`,
-  //     price: `32${i}`,
-  //     info: `London, Park Lane no. ${i}`,
-  //   });
-  // }
-  // <div>
-  //   {data.filter(name => name).map(filtedPerson =>(
-  //     <li>
-  //       {filteredPerson.name}
-  //     </li>
-  //   ))}
-  // </div>
-  
   const columns = [
     {
       title: 'id',
@@ -152,6 +169,12 @@ function ShipperPage() {
       sortOrder: sortedInfo.columnKey === 'lastName' && sortedInfo.order,
       ellipsis: true,
     },
+  {
+    title: 'Action',
+    dataIndex: '',
+    key: 'x',
+    render: (text) => <Button type="primary" onClick={openModal}>Open Modal</Button>
+  },
   ]
   return (
     <div>
@@ -162,8 +185,116 @@ function ShipperPage() {
         <Button onClick={setFilter}>Tim theo ten </Button>
       </Space>
       <Table columns={columns} dataSource={data} onChange={handleChange} />
+      <Modal
+        title="Basic Modal"
+        visible={open}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+      <Form
+        {...layout}
+        name="basic"
+        initialValues={{ remember: true }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+      >
+      <Form.Item
+        label="First Name"
+        name="firstname"
+        rules={[{ required: true, message: 'Please input your firstname!' }]}
+      >
+        <Input defaultValue='Thanh'/>
+      </Form.Item>
+
+      <Form.Item
+        label="Last Name"
+        name="lastname"
+        rules={[{ required: true, message: 'Please input your lastname!' }]}
+      >
+        <Input defaultValue='Hoang'/>
+      </Form.Item>
+
+      <Form.Item
+        label="Email"
+        name="email"
+        rules={[{ required: true, message: 'Please input your email!' }]}
+      >
+        <Input defaultValue='test@gmail.com'/>
+      </Form.Item>
+
+      <Form.Item
+        label="Email"
+        name="email"
+        rules={[{ required: true, message: 'Please input your email!' }]}
+      >
+        <Input defaultValue='test@gmail.com'/>
+      </Form.Item>
+
+      <Form.Item
+        label="Password"
+        name="password1"
+        rules={[{ required: true, message: 'Please input your password!' }]}
+      >
+        <Input.Password />
+      </Form.Item>
+
+      <Form.Item
+        label="Confirm Password"
+        name="password2"
+        rules={[{ required: true, message: 'Please input your password!' }]}
+      >
+        <Input.Password />
+      </Form.Item>
+
+      <Form.Item
+        label="Phone Number"
+        name="phonenumber"
+        rules={[{ required: true, message: 'Please input your email!' }]}
+      >
+        <Input defaultValue='0863518304'/>
+      </Form.Item>
+
+      <Form.Item
+        label="Birthday"
+        name="birthday"
+        rules={[{ required: true, message: 'Please input your email!' }]}
+      >
+        <Input defaultValue='15/10/1998'/>
+      </Form.Item>
+
+      <Form.Item
+        label="Card Number"
+        name="birthday"
+        rules={[{ required: true, message: 'Please input your email!' }]}
+      >
+        <Input defaultValue='312363576'/>
+      </Form.Item>
+
+      <Form.Item
+        label="Address"
+        name="address"
+        rules={[{ required: true, message: 'Please input your email!' }]}
+      >
+        <Input defaultValue='Chung Cu 9 View'/>
+      </Form.Item>
+
+      <Form.Item
+        label="Wallet"
+        name="wallet"
+        rules={[{ required: true, message: 'Please input your email!' }]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item {...tailLayout}>
+        <Button onClick={testNoti} type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
+      </Modal>
     </div>
   );
-} 
+}
 
 export default ShipperPage;

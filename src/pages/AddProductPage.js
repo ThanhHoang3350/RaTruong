@@ -68,7 +68,6 @@ const AddCreateProductPage = () => {
       typeId: product.typeId,
       marketId: product.marketId,
     }
-    console.log('yyy', datapost);
     return axios.post(`http://localhost:4000/addproducts`, datapost)
   }
 
@@ -84,9 +83,7 @@ const AddCreateProductPage = () => {
       typeId: event.typeId,
       marketId: event.marketId,
     }
-    console.log('yyy', datapost);
     return axios.post(`http://localhost:4000/addproducts`, datapost)
-    console.log('test', event);
     event.preventDefault();
   }
 

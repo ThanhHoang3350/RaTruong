@@ -9,6 +9,7 @@ var SELLECT_ALL_CUSTOMER_QUERY = "SELECT * FROM user WHERE user.type = 'customer
 var SELLECT_ALL_SHIPPER_QUERY = "SELECT * FROM Shipper";
 var SELLECT_BOOKING_QUERY = 'SELECT booking.id, user.firstName, user.lastName, booking.shipperId, service.name, booking.description, booking.address, booking.rating,booking.feedback,booking.createdAt,booking.updatedAt FROM booking INNER JOIN user ON user.id = booking.customerId INNER JOIN service ON booking.serviceId = service.id';
 var SELLECT_ALL_PRODUCT_QUERY = "SELECT * FROM Product";
+var SELLECT_ALL_SHIPPER_QUERY = "SELECT * FROM Shipper";
 var SELLECT_ALL_TYPEPRODUCT_QUERY = "SELECT * FROM TypeProduct";
 var SELLECT_ALL_MARKET_QUERY = "SELECT * FROM Market";
 var DELETE_FROM_USER = "DELETE FROM user WHERE id = ?";
@@ -16,8 +17,8 @@ var DELETE_FROM_USER = "DELETE FROM user WHERE id = ?";
 const connection = mysql.createConnection({
  	host: 'localhost',
  	user: 'root',
- 	password: '12345678',
- 	database: 'MarketOnline'
+ 	password: '',
+ 	database: 'KingBook'
 });
 
 connection.connect(function(err) {
@@ -47,6 +48,20 @@ app.get('/booking', (req, res)=>{
 //show type-product
 app.get('/typeproduct', (req, res)=>{
   connection.query(SELLECT_ALL_TYPEPRODUCT_QUERY, (err,results)=>{
+    if(err) {
+      return res.send(err)
+    }
+    else {
+      return res.json({
+        data: results
+      })
+    }
+  });
+});
+
+//show  all shipper
+app.get('/shipper', (req, res)=>{
+  connection.query(SELLECT_ALL_SHIPPER_QUERY, (err,results)=>{
     if(err) {
       return res.send(err)
     }

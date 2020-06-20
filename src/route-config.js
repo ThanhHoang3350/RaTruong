@@ -22,7 +22,7 @@ const routes=[
         path: '/product',
         exact: true,
         main: ()=> <ProductPage/>
-    }, 
+    },
     {
         path:'/addproduct',
         exact: true,
@@ -36,7 +36,7 @@ const routes=[
     {
         path: '/addshipper',
         exact: true,
-        main: ()=> <AddShipperPage/>
+        main: (e)=> <AddShipperPage data={e}/>
     },
     {
         path: '/shipper',
