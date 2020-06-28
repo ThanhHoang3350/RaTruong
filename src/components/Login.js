@@ -1,5 +1,6 @@
 import React, {useReducer} from 'react';
 import * as notify from './../constants/Notify';
+import { Link } from 'react-router-dom';
 
 import { firebaseApp } from './../firebase';
 import { useDispatch } from 'react-redux';
@@ -28,7 +29,7 @@ function Login() {
 			.signInWithEmailAndPassword(email, password)
 			.then(data => {
 				dispatch(actChangeNotify(notify.NOTI_TYPE_SUCCESS, notify.NOTI_SIGNIN_SUCCESSFULL_TITLE, notify.NOTI_SIGNIN_SUCCESSFULL_MESSAGE))
-				
+
 			})
 			.catch((error) => {
 				dispatch(actChangeNotify(notify.NOTI_TYPE_DANGER, notify.NOTI_SIGNIN_FAIL_TITLE, error.message ));
@@ -55,7 +56,15 @@ function Login() {
                 </div>
                 <div className="form-group">
 					<div className="col-sm-offset-2 col-sm-6">
-						<button type="submit" className="btn btn-success">Sign in</button>
+            { userInput.email === 'thanhhoang@gmail.com' ?
+  						<button type="submit" className="btn btn-success">
+                <Link to={`/product`}>Sign in</Link>
+              </button>
+              :
+              <button type="submit" className="btn btn-success">
+                <Link to={`/login`}>Sign in</Link>
+              </button>
+            }
 					</div>
 				</div>
             </form>

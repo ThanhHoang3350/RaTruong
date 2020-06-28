@@ -10,9 +10,15 @@ import AddCustomerPage from './pages/AddCustomerPage';
 import AddShipperPage from './pages/AddShipperPage';
 import ShipperPage from './pages/ShipperPage';
 import ListRegisterPage from './pages/ListRegisterPage'
+import UpdateProductPage from './pages/UpdateProductPage'
 
 
 const routes=[
+    {
+        path: '/login',
+        exact: true,
+        main: ()=> <LoginPage/>
+    },
     {
         path: '/listregister',
         exact: true,
@@ -27,6 +33,11 @@ const routes=[
         path:'/addproduct',
         exact: true,
         main: ()=> <AddProductPage/>
+    },
+    {
+        path: '/updateproduct',
+        exact: true,
+        main: ()=> <UpdateProductPage/>
     },
     {
         path: '/addcustomer',
@@ -52,11 +63,6 @@ const routes=[
         path: "/",
         exact: true,
         main: () => <HomePage/>
-    },
-    {
-        path: '/login',
-        exact: true,
-        main: ()=> <LoginPage/>
     }
 ];
 

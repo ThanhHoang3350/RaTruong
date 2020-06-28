@@ -27,7 +27,8 @@ firebaseApp.auth().onAuthStateChanged((user) => {
 		}
 		usersRef.child(user.uid).once('value').then(data => {
 			let info = data.val();
-			userInfo.username = info.website;
+      console.log(info);
+			userInfo.username = 1;
 			store.dispatch(actLogin(userInfo));
 		})
 	} else {

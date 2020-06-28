@@ -1,44 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState, useContext } from 'react';
 import './ProductPage.css';
-//import './PageCustomer.css';
-import { Redirect, Link } from 'react-router-dom';
-import { Table, Button, Space } from 'antd';
+import { Table, Space } from 'antd';
+import { Link } from 'react-router-dom';
+import { ProductCtx } from './ProductContext';
 
 
 function ProductPage() {
   let [ filteredInfo, setFilteredInfo ] = useState(null);
   let [ sortedInfo, setsortedInfo ] = useState(null);
   const [ products, setProducts ] = useState([]);
-  
-  const scrollToRef = (ref) => window.scroll(0, ref.current.offsetTop)
 
   const handleChange = (pagination, filters, sorter) => {
     setFilteredInfo(filters)
     setsortedInfo(sorter)
   };
 
-  const clearFilters = () => {
-    setFilteredInfo(null)
-  };  
+  const { productSave, setProductSave } = useContext(ProductCtx);
 
-  const clearAll = () => {
-    setFilteredInfo(null)
-    setsortedInfo(null)
+  const openPageUpdate = (record) => {
+    setProductSave(record);
   };
 
-  const setAgeSort = () => {
-    setsortedInfo({
-      order: 'descend',
-      columnKey: 'age',
-    })
-  };  
-  const setFilter = () =>{
-    setFilter()
-    {
-      
-    }
-  }
   useEffect(() => {
     const abortController = new AbortController();
     fetch('http://localhost:4000/products/',{ signal: abortController.signal})
@@ -51,8 +33,6 @@ function ProductPage() {
   }
   ,[])
 
-  console.log(products);
-
   sortedInfo = sortedInfo || {};
   filteredInfo = filteredInfo || {};
 
@@ -63,21 +43,13 @@ function ProductPage() {
       price: p.price,
       info: p.info,
       mass: p.mass,
+      image: p.image,
       origin: p.origin,
       status: p.status,
-      typeid: p.typeid, 
-      marketid: p.marketid,
+      typeid: p.typeId,
+      marketid: p.marketId,
     })
-  }); 
-  // const data = [];
-  // for (let i = 0; i < 46; i++) {
-  //   data.push({
-  //     key: i,
-  //     name: `Edward King ${i}`,
-  //     age: 32,
-  //     address: `London, Park Lane no. ${i}`,
-  //   });
-  // }
+  });
 
   const columns = [
     {
@@ -112,7 +84,7 @@ function ProductPage() {
     },
     {
 
-      title: 'Định lượng',
+      title: 'Tác giả',
       dataIndex:'mass',
       key: 'mass',
       filteredValue: filteredInfo.mass|| null,
@@ -142,14 +114,6 @@ function ProductPage() {
       ellipsis: true,
     },
     {
-      title: 'Mã loại',
-      dataIndex:'typeid',
-      key: 'typeid',
-      filteredValue: filteredInfo.typeid|| null,
-      onFilter: (value, record) => record.typeid.includes(value),
-      sorter: (a, b) => a.typeid.length - b.typeid.length,
-      sortOrder: sortedInfo.columnKey === 'typeid' && sortedInfo.order,
-
       title: 'Giá bán',
       dataIndex: 'price',
       key: 'price',
@@ -158,31 +122,20 @@ function ProductPage() {
       ellipsis: true,
     },
     {
-      title: 'Mã siêu thị',
-      dataIndex:'marketid',
-      key: 'marketid',
-      filteredValue: filteredInfo.marketid|| null,
-      onFilter: (value, record) => record.marketid.includes(value),
-      sorter: (a, b) => a.marketid.length - b.marketid.length,
-      sortOrder: sortedInfo.columnKey === 'marketid' && sortedInfo.order,
-      ellipsis: true, 
+      title: '',
+      dataIndex: 'action',
+      render: (text, record) => <Link to={`/updateproduct`} onClick={() => openPageUpdate(record)}>Edit</Link>,
     },
   ]
 
   return (
     <div>
       <Space style={{ marginBottom: 16 }}>
-        {/* <Button onClick={setAgeSort}>Sort Age</Button>
-        <Button onClick={clearFilters}>Clear filters</Button>
-        <Button onClick={clearAll}>Clear filters and sorters</Button>
-        <Button onClick={setFilter}>Tim theo ten </Button> */}
-        {/* <Button onClick={setAgeSort}>Sort age</Button>
-        <Button onClick={clearFilters}>Clear filters</Button>
-        <Button onClick={clearAll}>Clear filters and sorters</Button> */}
       </Space>
+      <div className="Title-page-product">Page Products</div>
       <Table columns={columns} dataSource={data} onChange={handleChange} />
     </div>
   );
-  
+
 }
 export default ProductPage;

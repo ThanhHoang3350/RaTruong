@@ -1,8 +1,7 @@
-import React, {useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import 'antd/dist/antd.css';
 import './OderPage.css';
-import { Redirect, Link } from 'react-router-dom';
-import { Table, Tag, Space, Button } from 'antd';
+import { Table, Space, Button } from 'antd';
 
 function OrderPage ()
 {
@@ -19,7 +18,7 @@ function OrderPage ()
     setFilteredInfo(null)
   };
 
-  const clearAll = () => {  
+  const clearAll = () => {
     setFilteredInfo(null)
     setsortedInfo(null)
   };
@@ -64,7 +63,7 @@ function OrderPage ()
       render: () => <a>Duyet Don Hang</a>,
     },
   ];
-  
+
   const data = [
     {
       key: '1',
@@ -90,4 +89,4 @@ function OrderPage ()
   </div>
         );
  }
- export default OrderPage;  
+ export default OrderPage;

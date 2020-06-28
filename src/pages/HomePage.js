@@ -1,6 +1,6 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
-import {Redirect} from 'react-router-dom'
+import {Redirect} from 'react-router-dom';
 
 function HomePage() {
   	const user = useSelector((state) => state.user);

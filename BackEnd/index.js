@@ -175,10 +175,24 @@ app.post('/user/:id',(req, res)=>{
 	});
 });
 
+//sửa product
+app.put('/updateproduct/:id',(req, res) => {
+  const { id } = req.params;
+  const { productName, price, info, image, mass, origin, status, typeId, marketId } = req.body;
+  var UPDATE_PRODUCT_USER = `UPDATE product SET productName="${productName}",price="${price}",info="${info}",image="${image}",mass="${mass}",origin="${origin}",status="${status}",typeId="${typeId}",marketId="${marketId}" WHERE product.id="${id}"`
+  connection.query(UPDATE_PRODUCT_USER,(err,results) => {
+    if(err) {
+      return res.send(err)
+    }
+    else {
+      return res.send('update succcess')
+    }
+  });
+});
+
 //thêm user
 app.post('/adduser', (req, res)=>{
 	const {id,email,emailVerified,phoneNumber,password,firstName,type,lastName,walletValue,createdAt,updatedAt} = req.body;
-	console.log(req.body);
 	var INSERT_USER_QUERY = `INSERT INTO user (id,email,emailVerified,phoneNumber,password,firstName,type,lastName,walletValue,createdAt,updatedAt)
 	VALUES ('${id}','${email}','${emailVerified}','${phoneNumber}','${password}','${firstName}','${type}','${lastName}','${walletValue}','${createdAt}','${updatedAt}')`
 	connection.query(INSERT_USER_QUERY,(err,result)=>{
@@ -194,7 +208,6 @@ app.post('/adduser', (req, res)=>{
 //thêm product
 app.post('/addproduct', (req, res)=>{
   const { productName, price, info, image, mass, origin, status, typeId, marketId } = req.body;
-  console.log(req.body);
   var INSERT_PRODUCT_QUERY = `INSERT INTO product (productName, price, info, image, mass, origin, status, typeId, marketId)
   VALUES ('${productName}', '${price}', '${info}', '${image}', '${mass}', '${origin}', '${status}', '${typeId}', '${marketId}')`
   connection.query(INSERT_PRODUCT_QUERY ,(err,result)=>{
@@ -206,7 +219,6 @@ app.post('/addproduct', (req, res)=>{
     }
   });
 });
-
 
 app.listen(4000, () =>{
 	console.log(`Products server listening on port 4000`)

@@ -1,6 +1,7 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
 import './Header.css';
+import { Link } from 'react-router-dom';
 
 import { firebaseApp } from './../firebase';
 function Header() {
@@ -32,10 +33,12 @@ function Header() {
                   Profile
                   </a>
                   <div className="dropdown-divider" />
-                      <a onClick={handleClick} className="dropdown-item" href=" #" data-toggle="modal" data-target="#logoutModal">
-                      <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"  />
-                      Logout
-                      </a>
+                    <a className="dropdown-item">
+                      <Link to={`/login`}>
+                        <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"  />
+                          Logout
+                       </Link>
+                    </a>
                   </div>
               </li>
           </ul>

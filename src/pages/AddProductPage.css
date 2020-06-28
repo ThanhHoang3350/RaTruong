@@ -1,0 +1,20 @@
+.Page-add-product {
+  width: 850px;
+}
+
+.Title-page-add-product {
+  margin: 30px;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.Wrap-button {
+  width: 250px;
+  display: flex;
+  margin-left: 695px;
+}
+
+.Button-submit {
+  margin-right: 10px;
+}

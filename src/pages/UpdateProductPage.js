@@ -1,6 +1,8 @@
-import React, { useReducer, useState, useEffect } from 'react';
+import React, { useReducer, useState, useEffect, useContext } from 'react';
 import { Form, Input, Button, Select, message } from 'antd';
 import axios from 'axios'
+import { Link } from 'react-router-dom';
+import { ProductCtx } from './ProductContext';
 
 import './AddProductPage.css';
 import { useDispatch } from 'react-redux';
@@ -34,7 +36,10 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 
-const AddCreateProductPage = () => {
+const UpdateProductPage = () => {
+
+  const { productSave, setProductSave } = useContext(ProductCtx);
+
   const dispatch = useDispatch();
     const [product, setProduct] = useReducer(
     (state, newState) => ({...state, ...newState}),
@@ -55,19 +60,20 @@ const AddCreateProductPage = () => {
       setProduct({[name]: newValue});
   }
 
-  const addProduct =()=>{
+  const addProduct = () => {
+    let id = productSave.id;
     const datapost = {
-      productName: product.productName,
-      price: product.price,
-      info: product.info,
-      image: product.image,
-      mass: product.mass,
-      origin: product.origin,
-      status: product.status,
-      typeId: product.typeId,
-      marketId: product.marketId,
+      productName: product.productName || productSave.productName,
+      price: product.price || productSave.price,
+      info: product.info || productSave.info,
+      image: product.image || productSave.image,
+      mass: product.mass || productSave.mass,
+      origin: product.origin || productSave.origin,
+      status: product.status || productSave.status,
+      typeId: product.typeId || productSave.typeid,
+      marketId: product.marketId || productSave.marketid,
     }
-    return axios.post(`http://localhost:4000/addproducts`, datapost)
+    return axios.put(`http://localhost:4000/updateproduct/${id}`, datapost)
   }
 
   const handleSubmit = (event) => {
@@ -126,7 +132,6 @@ const AddCreateProductPage = () => {
     });
   };
 
-
   useEffect(() => {
     const abortController = new AbortController();
     fetch('http://localhost:4000/market/',{ signal: abortController.signal})
@@ -152,18 +157,14 @@ const AddCreateProductPage = () => {
   ,[])
   return (
     <React.Fragment>
-      <div className="Title-page-add-product">Page Add Product</div>
+      <div className="Title-page-add-product">Page Update Product</div>
       <Form className="Page-add-product" {...layout} form={form} name="control-hooks" onFinish={handleSubmit}>
         <Form.Item
           name="marketId"
           label="Tên Cửa Hàng"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
         >
           <Select
+            defaultValue={productSave.marketid === 1 ? 'Phương Nam' : productSave.marketid === 2 ? 'Cá Chép' : productSave.marketid === 3 ? 'Kim Đồng' : productSave.marketid === 4 ? 'E Book' : productSave.marketid === 5 ? 'Fahasa' : productSave.marketid === 6 ? 'Alpha Books' : productSave.marketid === 7 ? 'Thái Hà' : productSave.marketid === 8 ? 'Nhã Nam' : productSave.marketid === 9 ? 'Tri Thức Trẻ' : null}
             placeholder="Select a option and change input text above"
             onChange={onGenderChange}
             allowClear
@@ -181,13 +182,9 @@ const AddCreateProductPage = () => {
         <Form.Item
           name="typeId"
           label="Loaị Sản Phẩm"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
         >
           <Select
+            defaultValue={productSave.typeid === 1 ? 'Văn Học Việt Nam' : productSave.typeid === 2 ? 'Văn Học Nước Ngoài' : productSave.typeid === 3 ? 'Giáo Dục' : productSave.typeid === 4 ? 'Truyện Tranh' : productSave.typeid === 5 ? 'Kinh Tế' : productSave.typeid === 6 ? 'Xã Hội' : productSave.typeid === 7 ? 'Công Nghệ' : productSave.typeid === 8 ? 'Nấu Ăn' : productSave.typeid === 9 ? 'Luyện Tiếng Anh' : productSave.typeid === 10 ? 'Thể Dục Thể Thao' : productSave.typeid === 11 ? 'Văn Học Trung Quốc' : productSave.typeid === 12 ? 'Luật Pháp' : null}
             placeholder="Select a option and change input text above"
             onChange={onGenderChange}
             allowClear
@@ -205,13 +202,9 @@ const AddCreateProductPage = () => {
         <Form.Item
           name="status"
           label="Trạng Thái Sản Phẩm"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
         >
           <Select
+           defaultValue={productSave.status === 'bán chạy' ? 'Bán Chạy' : productSave.status === '"khuyến mãi' ? 'Khuyến Mãi' : productSave.status === 'nổi bật' ? 'Nổi Bật' :  null}
             placeholder="Select a option and change input text above"
             onChange={onGenderChange}
             allowClear
@@ -224,71 +217,41 @@ const AddCreateProductPage = () => {
         <Form.Item
           name="productName"
           label="Tên Sản Phẩm"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
         >
-          <Input value={product.productName} onChange={handleChange} name="productName"/>
+          <Input value={product.productName} defaultValue={productSave.productName} onChange={handleChange} name="productName"/>
         </Form.Item>
 
         <Form.Item
           name="price"
           label="Giá Sản Phẩm"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
         >
-          <Input value={product.price} onChange={handleChange} name="price"/>
+          <Input value={product.price} onChange={handleChange} defaultValue={productSave.price} name="price"/>
         </Form.Item>
 
         <Form.Item
           name="info"
           label="Thông Tin"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
         >
-          <Input  value={product.info} onChange={handleChange} name="info"/>
+          <Input  value={product.info} onChange={handleChange} defaultValue={productSave.info} name="info"/>
         </Form.Item>
         <Form.Item
           name="Image"
           label="Hình Ảnh"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
         >
-        <Input  value={product.image} onChange={handleChange} name="image"/>
+        <Input  value={product.image} onChange={handleChange}  defaultValue={productSave.image} name="image"/>
         </Form.Item>
         <Form.Item
           name="mass"
           label="Tác Giả"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
         >
-          <Input  value={product.mass} onChange={handleChange} name="mass"/>
+          <Input  value={product.mass} onChange={handleChange}  defaultValue={productSave.mass} name="mass"/>
         </Form.Item>
 
         <Form.Item
           name="origin"
           label="Nguồn Gốc"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
         >
-          <Input  value={product.origin} onChange={handleChange} name="origin"/>
+          <Input  value={product.origin} onChange={handleChange} defaultValue={productSave.origin} name="origin"/>
         </Form.Item>
         {/* <Form.Item
           noStyle
@@ -311,8 +274,8 @@ const AddCreateProductPage = () => {
           }
         </Form.Item> */}
         <Form.Item className="Wrap-button">
-          <Button className="Button-submit" type="primary" htmlType="submit">
-            Submit
+          <Button className="Button-submit" onClick={addProduct} type="primary" htmlType="submit">
+            <Link to={`/product`}>Submit</Link>
           </Button>
           <Button htmlType="button" onClick={onReset}>
             Reset
@@ -322,4 +285,4 @@ const AddCreateProductPage = () => {
     </React.Fragment>
   );
 }
-export default AddCreateProductPage;
+export default UpdateProductPage;

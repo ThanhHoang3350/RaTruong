@@ -2,3 +2,10 @@
   width: 180em;
   background-color: black;
 }
+
+.Title-page-product {
+  margin: 30px;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+}

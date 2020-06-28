@@ -34,7 +34,7 @@ function UpdateCustomerPage(match) {
             abortController.abort();
         };
     },[id])
-	
+
 	const handleChange = evt => {
 		const name = evt.target.name;
     	const newValue = evt.target.value;
@@ -49,11 +49,11 @@ function UpdateCustomerPage(match) {
 			firstName: customer.firstName,
 			lastName: customer.lastName
 		}
-		return axios.post(`http://localhost:4000/user/${id}`, datapost)	
+		return axios.post(`http://localhost:4000/user/${id}`, datapost)
 	}
 
 	const handleSubmit = (event) => {
-		updateCustomer();	
+		updateCustomer();
 		dispatch(actChangeNotify(notify.NOTI_TYPE_SUCCESS, notify.NOTI_UPDATE_CUSTOMER_TITLE, notify.NOTI_UPDATE_CUSTOMER_MESSAGE))
 		event.preventDefault();
 	}
@@ -80,11 +80,11 @@ function UpdateCustomerPage(match) {
 						<div className="form-group">
 							<label htmlFor="pwd">Email Verified:</label>
 							<input type="input" value={customer.emailVerified} onChange={handleChange} name="emailVerified" className="form-control" />
-						</div>	
+						</div>
 						<div className="form-group">
 							<label htmlFor="pwd">Phone Number:</label>
 							<input type="input" value={customer.phoneNumber} onChange={handleChange} name="phoneNumber" className="form-control" />
-						</div>	
+						</div>
 						<div className="form-group">
 							<label htmlFor="pwd">Create At:</label>
 							<input type="input" value={customer.createdAt} onChange={handleChange} name="createAt" className="form-control" />
@@ -92,7 +92,7 @@ function UpdateCustomerPage(match) {
 						<div className="form-group">
 							<label htmlFor="pwd">Update At:</label>
 							<input type="input" value={customer.updatedAt} onChange={handleChange} name="updateAt" className="form-control" />
-						</div>				
+						</div>
 						<button type="submit" className="btn btn-success btn-lg">Submit</button>
 						<Link to={`/customer`}>
 							<button type="button" className="btn btn-lg">
@@ -100,13 +100,11 @@ function UpdateCustomerPage(match) {
 							</button>
 						</Link>
 					</form>
-					
+
 				</div>
 			</div>
 		</div>
 	);
 }
-
-
 
 export default UpdateCustomerPage;

@@ -5,6 +5,7 @@ import {
     Switch
 } from 'react-router-dom';
 import './App.css';
+import { ProductProvider } from '../pages/ProductContext';
 
 import Notify from './Notify';
 import Header from './Header';
@@ -14,28 +15,30 @@ import routes from './../route-config';
 
 function App() {
   return (
-	<Router>
-		<div id="wrapper">
-			{/* Sidebar */}
-			<Sidebar />
-			<Notify/>
-			{/* End of Sidebar */}
-			{/* Content Wrapper */}
-			<div id="content-wrapper" className="d-flex flex-column Content">
-				{/* Main Content */}
-				<div id="content">
-					<Header/>
+  <ProductProvider>
+  	<Router>
+    		<div id="wrapper">
+    			{/* Sidebar */}
+    			<Sidebar />
+    			<Notify/>
+    			{/* End of Sidebar */}
+    			{/* Content Wrapper */}
+    			<div id="content-wrapper" className="d-flex flex-column Content">
+    				{/* Main Content */}
+    				<div id="content">
+      					<Header/>
 
-					{showRoute(routes)}
-				</div>
-				{/* End of Main Content */}
-				{/* Footer */}
-				<Footer/>
-				{/* End of Footer */}
-			</div>
-			{/* End of Content Wrapper */}
-		</div>
-	</Router>
+      					{showRoute(routes)}
+    				</div>
+    				{/* End of Main Content */}
+    				{/* Footer */}
+    				<Footer/>
+    				{/* End of Footer */}
+    			</div>
+    			{/* End of Content Wrapper */}
+    		</div>
+  	</Router>
+  </ProductProvider>
   );
 }
 

@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 //import './ProductPage.css';
-import {Redirect, Link} from 'react-router-dom';
 import { Table, Button, Space } from 'antd';
 
 function ShipperPage() {
-  let [ filteredInfo, setFilteredInfo ] = useState(null); 
+  let [ filteredInfo, setFilteredInfo ] = useState(null);
   let [ sortedInfo, setsortedInfo ] = useState(null);
   const [ shipper, setShipper ] = useState([]);
 
@@ -18,7 +16,7 @@ function ShipperPage() {
     setFilteredInfo(null)
   };
 
-  const clearAll = () => {  
+  const clearAll = () => {
     setFilteredInfo(null)
     setsortedInfo(null)
   };
@@ -28,12 +26,9 @@ function ShipperPage() {
       order: 'descend',
       columnKey: 'age',
     })
-  };  
+  };
   const setFilter = () =>{
     setFilter()
-    {
-      
-    }
   };
 
   useEffect(() => {
@@ -82,7 +77,7 @@ function ShipperPage() {
   //     </li>
   //   ))}
   // </div>
-  
+
   const columns = [
     {
       title: 'id',
@@ -164,6 +159,6 @@ function ShipperPage() {
       <Table columns={columns} dataSource={data} onChange={handleChange} />
     </div>
   );
-} 
+}
 
 export default ShipperPage;

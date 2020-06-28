@@ -1,13 +1,8 @@
 import React, { useReducer, useState, useEffect } from 'react';
-import MultiSelect from "react-multi-select-component";//
-import { Link } from 'react-router-dom';
 import { Form, Input, Button, Select, message } from 'antd';
 import axios from 'axios'
 
-import { actChangeNotify} from './../actions/index';
-import * as notify from './../constants/Notify';
-import { useDispatch } from 'react-redux';
-import { Dropdown, Menu, Upload } from 'antd';
+import { Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
 const props = {
@@ -38,7 +33,6 @@ const tailLayout = {
 };
 const AddShipperPage = () => {
   console.log(props);
-  const dispatch = useDispatch();
     const [product, setProduct] = useReducer(
     (state, newState) => ({...state, ...newState}),
     {
@@ -57,20 +51,20 @@ const AddShipperPage = () => {
     const newValue = evt.target.value;
       setProduct({[name]: newValue});
   }
-  const addProduct =()=>{
-    const datapost = {
-      productName: product.productName,
-      price: product.price,
-      info: product.info,
-      image: product.image,
-      mass: product.mass,
-      origin: product.origin,
-      status: product.status,
-      typeId: product.typeId,
-      marketId: product.marketId,
-    }
-    return axios.post(`http://localhost:4000/addproducts`, datapost)
-  }
+  // const addProduct =()=>{
+  //   const datapost = {
+  //     productName: product.productName,
+  //     price: product.price,
+  //     info: product.info,
+  //     image: product.image,
+  //     mass: product.mass,
+  //     origin: product.origin,
+  //     status: product.status,
+  //     typeId: product.typeId,
+  //     marketId: product.marketId,
+  //   }
+  //   return axios.post(`http://localhost:4000/addproducts`, datapost)
+  // }
 
   const handleSubmit = (event) => {
     const datapost = {
